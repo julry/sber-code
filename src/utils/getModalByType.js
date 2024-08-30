@@ -1,18 +1,23 @@
 import { 
-    PrizesModal,
-    TgModal
+    ProfileModal,
+    CoinsRulesModal,
+    TgModal,
+    LobbyRulesModal
 } from "../components/shared/modals";
 
 export const getModalByType = (type) => {
     let Component;
 
     switch(type) {
-        // case 'profile':
-        //     Component = ProfileModal;
-        //     break;
-        // case 'whiteStar':
-        //     Component = WhiteStarModal;
-        //     break;
+        case 'profile':
+            Component = ProfileModal;
+            break;
+        case 'points': 
+            Component = CoinsRulesModal;
+            break;
+        case 'lobbyRules':
+            Component = LobbyRulesModal;
+            break;
         // case 'redStar':
         //     Component = RedStarModal;
         //     break;  
@@ -34,9 +39,9 @@ export const getModalByType = (type) => {
         case 'tg':
             Component = TgModal;
             break;
-        case 'prizes':
-            Component = PrizesModal;
-            break; 
+        // case 'prizes':
+        //     Component = PrizesModal;
+        //     break; 
         default:
             return;
     }

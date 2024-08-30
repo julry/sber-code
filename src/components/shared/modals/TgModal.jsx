@@ -3,17 +3,6 @@ import { useProgress } from "../../../contexts/ProgressContext";
 import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
-import { BackButton } from "../BackButton";
-
-const Content = styled(Block)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding-left: var(--spacing_x5);
-    padding-right: var(--spacing_x5);
-    text-align: center;
-`;
 
 const ButtonStyled = styled(Button)`
     margin: var(--spacing_x5) 0 0;
@@ -34,7 +23,7 @@ export const TgModal = () => {
 
     return (
         <Modal isDisabledAnimation={modal.isDisabledAnimation}>
-            <Content>
+            <Block>
                 <p>
                     В нашем <b>телеграм-боте</b> ты можешь следить за <b>обновлениями</b> игры 
                     и находить <b>ответы</b> на возможные вопросы. Там же мы огласим ID <b>победителей</b> розыгрыша!{'\n\n'}
@@ -48,8 +37,8 @@ export const TgModal = () => {
                         </>
                     )}
                 </p>
-                <ButtonStyled onClick={handleClick}>Перейти</ButtonStyled>
-            </Content>
+            </Block>
+            <ButtonStyled onClick={handleClick}>Перейти</ButtonStyled>
         </Modal>
     )
 }

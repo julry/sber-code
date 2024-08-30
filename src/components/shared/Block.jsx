@@ -3,12 +3,11 @@ import { useSizeRatio } from "../../hooks/useSizeRatio";
 
 const Wrapper = styled.div`
     position: relative;
-    padding: ${({$hasCloseIcon}) => $hasCloseIcon ? 'calc(2 * var(--spacing_x5) + var(--spacing_x1))' : 'var(--spacing_x5)'} var(--spacing_x3) var(--spacing_x5);
+    padding: ${({$hasCloseIcon}) => $hasCloseIcon ? 'calc(var(--spacing_x5) + var(--spacing_x1)/2)' : 'var(--spacing_x5)'} var(--spacing_x3) var(--spacing_x5);
     background-color: rgba(36, 21, 47, 0.9);
     color: var(--color-white);
     width: ${({$ratio}) => $ratio * 330}px;
     border-radius: ${({$ratio}) => $ratio * 15}px;
-    font-size: var(--font_lg);
     display: flex;
     flex-direction: column;
     align-items: center;

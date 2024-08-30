@@ -11,12 +11,14 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 
     & + & {
         margin-left: var(--spacing_x5);
     }
 
     & > svg {
+        flex-shrink: 0;
         width: ${({$ratio}) => $ratio * 55}px;
         height: ${({$ratio}) => $ratio * 55}px;
     }
@@ -27,7 +29,7 @@ const Text = styled.p`
 `;
 
 
-export const CoinsRulesModal = (props) => {
+export const CoinsRulesModal = () => {
     const { user, points, vipPoints, weekPoints, setModal, } = useProgress();
     const ratio = useSizeRatio();
 
@@ -38,18 +40,18 @@ export const CoinsRulesModal = (props) => {
                 <Wrapper>
                     {user.isVip ? (
                         <>
-                            <Wrapper>
-                                <Ticket />
+                            <Wrapper $ratio={ratio}>
+                                <Coin />
                                 <Text>{weekPoints} / 500</Text>
                             </Wrapper>
-                            <Wrapper>
-                                <Coin />
+                            <Wrapper $ratio={ratio}>
+                                <Ticket />
                                 <Text>{vipPoints} / 30</Text>
                             </Wrapper>
                         </>
                     ) : (
-                        <Wrapper>
-                            <Ticket />
+                        <Wrapper $ratio={ratio}>
+                            <Coin />
                             <Text>{points} / 520</Text>
                         </Wrapper>
                     )}

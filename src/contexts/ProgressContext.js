@@ -9,7 +9,7 @@ const INITIAL_USER = {
     email: 'ivan2001@mail.ru',
     university: 'ННГУ им. Лобачевского',
     fac: 'Факультет химических технологий, промышленной экологии и биотехнологий',
-    isVip: true,
+    isVip: false,
     seenRules: true,
     isTgConnected: false,
     weekTickets: [],

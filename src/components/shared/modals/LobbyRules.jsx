@@ -1,63 +1,37 @@
 import styled from "styled-components";
-import { useProgress } from "../../contexts/ProgressContext";
-import { useSizeRatio } from "../../hooks/useSizeRatio";
-import { Button } from "../shared/Button";
-import { FlexWrapper } from "../shared/FlexWrapper";
-import { Rules1Text } from "../shared/texts/Rules1Text";
-import start from '../../assets/images/start1.png';
-import { SCREENS } from "../../constants/screens";
+import { useProgress } from "../../../contexts/ProgressContext";
+import { useSizeRatio } from "../../../hooks/useSizeRatio";
+import { Block } from "../Block";
+import { Modal } from "./Modal";
 
-const Wrapper = styled(FlexWrapper)`
-    padding: ${({$ratio}) => $ratio * 50}px ${({$ratio}) => $ratio * 23}px ${({$ratio}) => $ratio * 40}px;
+const Title = styled.h3`
+    margin-top: ${({$ratio}) => $ratio * 12}px;
     text-align: left;
-
-    & h3 {
-        margin-top:  ${({$ratio}) => $ratio * 12}px;
-        text-align: left;
-        width: 100%;
-        font-size: var(--font_md);
-
-        &:first-of-type {
-            margin-top: 0;
-        }
-    }
-`;
-
-const Picture = styled.div`
-    position: absolute;
-    inset: 0;
-    background: url(${start}) no-repeat center 100% / cover;
-`;
-
-const Title = styled(Rules1Text)`
-    width: ${({$ratio}) => $ratio * 206}px; 
-    height: ${({$ratio}) => $ratio * 52}px;
-    margin-bottom: ${({$ratio}) => $ratio * 16}px;
-    flex-shrink: 0;
-`;
+    width: 100%;
+    font-size: var(--font_md);
+`
 
 const SmallText = styled.p`
     font-size: var(--font_xs);
     margin-top: var(--spacing_x2);
 `;
 
-const ButtonStyled = styled(Button)`
-    margin-top: auto;
+const BlockStyled = styled(Block)`
+    text-align: left;
 `;
 
-export const Start = () => {
+export const LobbyRulesModal = () => {
     const ratio = useSizeRatio();
-    const {next, user} = useProgress();
+    const {user, setModal} = useProgress();
 
     return (
-        <Wrapper $ratio={ratio}>
-            <Picture />
-            <Title $ratio={ratio}/>
-            <h3>Разгадывай шифры, узнавай больше о Сбере и получай призы</h3>
+        <Modal>
+            <BlockStyled hasCloseIcon onClose={() => setModal({visible: false})}>
+            <Title $ratio={ratio}>Разгадывай шифры, узнавай больше о Сбере и получай призы</Title>
             <SmallText>
                 После каждой головоломки тебя ждут пасхалки для решения финального шифра.
             </SmallText>
-            <h3>Зарабатывай монетки</h3>
+            <Title $ratio={ratio}>Зарабатывай монетки</Title>
             <SmallText> 
                 {user.isVip ? (
                     'Монетки можно заработать за разгаданные шифры: они позволят тебе участвовать в еженедельном розыгрыше призов и ' +
@@ -71,7 +45,7 @@ export const Start = () => {
             {
                 user.isVip && (
                     <>
-                        <h3>Собирай билетики</h3>
+                        <Title $ratio={ratio}>Собирай билетики</Title>
                         <SmallText>
                             Билетики можно заработать за заход в игру каждую неделю и за разгаданные шифры:{' '}
                             чем больше билетиков соберёшь, тем выше шансы получить главный приз — iPhone 16 Pro Max и 
@@ -80,15 +54,15 @@ export const Start = () => {
                     </>
                 )
             }
-            <h3>
+            <Title $ratio={ratio}>
                 Следи за уведомлениями на почте
-            </h3>
+            </Title>
             <SmallText>
                 Если станешь победителем — ищи стойку Сбера в своём вузе и забирай призы до 10 октября.{'\n'}
                 Не забудь взять свой студенческий билет!
             </SmallText>
-            <h3>Прояви смекалку и найди ключ к каждой загадке. Удачи!</h3>
-            <ButtonStyled onClick={() => next(SCREENS.START2)}>Как получать награды?</ButtonStyled>
-        </Wrapper>
-    )
-}
+            <Title $ratio={ratio}>Прояви смекалку и найди ключ к каждой загадке. Удачи!</Title>
+            </BlockStyled>
+        </Modal>
+    );
+};

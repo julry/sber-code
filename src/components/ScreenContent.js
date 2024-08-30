@@ -10,6 +10,7 @@ const Wrapper = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
+    ${({$blur}) => $blur ? 'filter: blur(5.5px)' : ''};
 `;
 
 export function ScreenContent() {
@@ -27,7 +28,7 @@ export function ScreenContent() {
 
     return Screen && (
         <>
-            <Wrapper>
+            <Wrapper $blur={modal.visible}>
                <Screen />
             </Wrapper>
             <AnimatePresence>

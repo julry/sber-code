@@ -5,7 +5,7 @@ const Wrapper = styled(motion.div)`
     position: absolute;
     inset: 0;
     z-index: 1000;
-    background: ${({$isDarken}) => $isDarken ? 'rgba(1, 21, 23, 0.9)' : 'transparent'};
+    background: rgba(0, 0, 0, 0.2);
     padding: 0 var(--spacing_md);
     display: flex;
     flex-direction: column;
