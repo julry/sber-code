@@ -1,0 +1,42 @@
+@import "fonts.css";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --color-red: #E04E39;
+  --color-green: #77E2C3;
+  --color-green2: #008C95;
+  --color-green3: #00313C;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-yellow: #FCC217;
+  
+  --color-white-text: #00313C;
+  --color-black-text: #FFFFFF;
+  --color-red-text: #FFFFFF;
+  --color-green-text: #00313C;
+  --color-green2-text: #FFFFFF;
+  --color-green3-text: #FFFFFF;
+}
+
+button {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 400;
+}
+
+#root {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
