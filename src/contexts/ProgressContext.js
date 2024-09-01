@@ -9,7 +9,7 @@ const INITIAL_USER = {
     email: 'ivan2001@mail.ru',
     university: 'ННГУ им. Лобачевского',
     fac: 'Факультет химических технологий, промышленной экологии и биотехнологий',
-    isVip: false,
+    isVip: true,
     seenRules: true,
     isTgConnected: false,
     weekTickets: [],
@@ -39,7 +39,7 @@ export function ProgressProvider(props) {
     const [points, setPoints] = useState(INITIAL_STATE.points);
     // points za недели, сюда добавляем набранные красные звезды для випов
     const [vipPoints, setVipPoints] = useState(INITIAL_STATE.vipPoints);
-    const [modal, setModal] = useState({visible: false});
+    const [modal, setModal] = useState({visible: true, type: 'postLevel', week: 1});
     // points za неделю, сюда добавляем набранные белые звезды для випов
     const [weekPoints, setWeekPoints] = useState(INITIAL_STATE.weekPoints);
     const [user, setUser] = useState(INITIAL_STATE.user);

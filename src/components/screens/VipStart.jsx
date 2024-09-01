@@ -53,7 +53,7 @@ export const VipStart = () => {
                 Каждую неделю при входе в игру ты будешь получать ещё по билетику.{'\n\n'}
                 Чем больше их соберёшь, тем выше шанс победить в главном розыгрыше iPhone 16 Pro Max и карьерных консультаций.
             </p>
-            <TicketWrapper  $ratio={ratio}>
+            <TicketWrapper $ratio={ratio}>
                 <Ticket />
                 <p>1</p>
             </TicketWrapper>

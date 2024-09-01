@@ -13,6 +13,7 @@ import { LobbyArrow } from "../shared/icons/LobbyArrow";
 import { LobbyHeader } from "../shared/LobbyHeader";
 import { useState } from "react";
 import { DoneMark } from "../shared/icons";
+import { weeks } from "../../constants/weeks";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -63,25 +64,6 @@ const DoneMarkStyled = styled(DoneMark)`
     left: 50%;
     transform: translate(-50%, -50%);
 `;
-
-const weeks = [
-    {
-        id: 1,
-        date: '09.09',
-    },
-    {
-        id: 2,
-        date: '16.09',
-    },
-    {
-        id: 3,
-        date: '23.09',
-    },
-    {
-        id: 4,
-        date: '30.09',
-    },
-];
 
 const SliderButton = styled(IconButton)`
     position: absolute;
@@ -146,7 +128,12 @@ export const Lobby = () => {
         </LeftSliderButton>
     )
 
-   return (
+    const handleClick = (id) => {
+        if (id > week) return;
+        setModal({visible: true, type: 'week', week: id});
+    };
+
+    return (
         <Wrapper $ratio={ratio}>
             <Header $ratio={ratio}/>
             <TgButton $ratio={ratio} onClick={() => setModal({visible: true, type: 'tg'})}>
@@ -167,7 +154,7 @@ export const Lobby = () => {
                 draggable={false}
                 nextArrow={NextButton}
                 prevArrow={PrevButton}
-                beforeChange={(oldInd, newInd) => setShown(newInd)}
+                beforeChange={(_, newInd) => setShown(newInd)}
             >
                 {weeks.map(({id, date}) => (
                     <DoorBlock>
@@ -179,22 +166,20 @@ export const Lobby = () => {
                                     )}
                                 </OpenDoor>
                             ) : <ClosedDoor $ratio={ratio}/>}
-                            <ButtonBlock $ratio={ratio}>
+                            <ButtonBlock $ratio={ratio} onClick={() => handleClick(id)}>
                                 {id <= week ? (<Button>Шифр №{id}</Button>) : (
                                     <Button>
                                         {id > CURRENT_WEEK ? `Откроется ${date}` : 'Реши предыдущий шифр'}
                                     </Button>
                                 )}
-                                <RulesButton $ratio={ratio} onClick={() => setModal({visible: true, type: 'lobbyRules'})}>
-                                    Правила
-                                </RulesButton>
                             </ButtonBlock>
                         </CenterWrapper>
                     </DoorBlock>
                 ))}
             </Slider>
-        {/* <PrevButton />
-        <NextButton /> */}
+            <RulesButton $ratio={ratio} onClick={() => setModal({visible: true, type: 'lobbyRules'})}>
+                Правила
+            </RulesButton>
         </Wrapper>
-   )
+    )
 }

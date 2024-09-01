@@ -1,23 +1,12 @@
-// export * from './WhiteStarModal';
-// export * from './RedStarModal';
-// export * from './ExitModal';
-// export * from './PreRulesModal';
-// export * from './WinModal';
-// export * from './InfoModal';
-// export * from './RefreshStarsModal';
-// export * from './CardRulesModal';
-// export * from './MovementModal';
-
-// export * from './MissedWeekModal';
-// export * from './GameRulesModal';
-// export * from './FirstRulesModal';
-// export * from './PrizesModal';
-// export * from './LeafsRules';
-// export * from './CoinsRules';
-// export * from './RefreshCoinsModal';
-// export * from './WaitModal';
+export * from './RefreshCoinsModal';
+export * from './WaitModal';
 export * from './ProfileModal';
 export * from './CoinsRules';
 export * from './TgModal';
 export * from './LobbyRules';
-
+export * from './DoorInfoModal';
+export * from './ExitModal';
+export * from './PostLevelModal';
+export * from './DoorInfoModal';
+export * from './FinishInfoModal';
+export * from './NewWeek';

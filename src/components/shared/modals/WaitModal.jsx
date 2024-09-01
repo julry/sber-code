@@ -1,24 +1,30 @@
 import styled from "styled-components";
+import { useProgress } from "../../../contexts/ProgressContext";
+import { useSizeRatio } from "../../../hooks/useSizeRatio";
 import { Block } from "../Block";
+import { Button } from "../Button";
 import { Modal } from "./Modal";
 
-const Content = styled(Block)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+const Text = styled.p`
+    font-size: ${({$ratio}) => $ratio * 22}px;
+`;
+
+const ButtonStyled = styled(Button)`
+    margin: var(--spacing_x5) 0 0;
 `;
 
 export const WaitModal = (props) => {
+    const ratio = useSizeRatio();
+    const {setModal} = useProgress();
+
     return (
-        <Modal isDarken isDisabledAnimation>
-            <Content isWhite hasCloseIcon onClose={props.onClose}>
-                <p>
-                    Увидимся <b>на следующей неделе</b>!{'\n'}
-                    Пока можешь посмотреть открытые карточки
-                </p>
-            </Content>
+        <Modal isDisabledAnimation>
+            <Block>
+                <Text $ratio={ratio}>
+                    Увидимся на следующей неделе!
+                </Text>
+            </Block>
+            <ButtonStyled onClick={() => setModal({visible: false})}>Вперёд!</ButtonStyled>
         </Modal>
-    )
-}
+    );
+};

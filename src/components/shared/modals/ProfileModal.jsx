@@ -92,24 +92,24 @@ export const ProfileModal = (props) => {
                 <PointsInfo $ratio={ratio}>
                     <Text>Полученные награды</Text>
                     <PointsWrapper>
-                    {user.isVip ? (
-                        <>
-                            <PointsWrapper $ratio={ratio}>
-                                <Coin />
-                                <Text>{weekPoints} / 500</Text>
-                            </PointsWrapper>
-                            <PointsWrapper $ratio={ratio}>
-                                <Ticket />
-                                <Text>{vipPoints} / 30</Text>
-                            </PointsWrapper>
-                        </>
-                    ) : (
-                            <PointsWrapper $ratio={ratio}>
-                                <Coin />
-                                <Text>{points} / 520</Text>
-                            </PointsWrapper>
-                    )}
-                </PointsWrapper>
+                        {user.isVip ? (
+                            <>
+                                <PointsWrapper $ratio={ratio}>
+                                    <Coin />
+                                    <Text>{weekPoints} / 500</Text>
+                                </PointsWrapper>
+                                <PointsWrapper $ratio={ratio}>
+                                    <Ticket />
+                                    <Text>{vipPoints} / 30</Text>
+                                </PointsWrapper>
+                            </>
+                        ) : (
+                                <PointsWrapper $ratio={ratio}>
+                                    <Coin />
+                                    <Text>{points} / 520</Text>
+                                </PointsWrapper>
+                        )}
+                    </PointsWrapper>
                 </PointsInfo>
             </BlockStyled>
         </Modal>

@@ -1,24 +1,29 @@
 import styled from "styled-components";
+import { useProgress } from "../../../contexts/ProgressContext";
 import { Block } from "../Block";
+import { Button } from "../Button";
 import { Modal } from "./Modal";
 
+const ButtonStyled = styled(Button)`
+    margin: var(--spacing_x5) 0 0;
+`;
+
 const Content = styled(Block)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    text-align: left;
 `;
 
 export const RefreshCoinsModal = (props) => {
+    const { setModal } = useProgress();
+
     return (
-        <Modal isDarken isDisabledAnimation>
-            <Content isWhite hasCloseIcon onClose={props.onClose}>
+        <Modal>
+            <Content hasCloseIcon onClose={() => setModal({visible: false})}>
                 <p>
-                    Ты успешно завершил прошлую неделю, <b>монетки обнулились</b>, так как розыгрыш уже прошёл.{'\n\n'}
-                    <b>Продолжай играть</b>, чтобы участвовать в <b>розыгрыше текущей недели</b>!
+                    Ты успешно завершил прошлую неделю, монетки обнулились, так как розыгрыш уже прошёл.{'\n\n'}
+                    Продолжай играть, чтобы участвовать в розыгрыше текущей недели!
                 </p>
             </Content>
+            <ButtonStyled onClick={() => setModal({visible: false})}>Вперёд!</ButtonStyled>
         </Modal>
     )
 }

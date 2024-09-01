@@ -2,7 +2,14 @@ import {
     ProfileModal,
     CoinsRulesModal,
     TgModal,
-    LobbyRulesModal
+    LobbyRulesModal,
+    DoorInfoModal,
+    ExitModal,
+    FinishInfoModal,
+    RefreshCoinsModal,
+    WaitModal,
+    NewWeekModal,
+    PostLevelModal,
 } from "../components/shared/modals";
 
 export const getModalByType = (type) => {
@@ -18,30 +25,30 @@ export const getModalByType = (type) => {
         case 'lobbyRules':
             Component = LobbyRulesModal;
             break;
-        // case 'redStar':
-        //     Component = RedStarModal;
-        //     break;  
-        // case 'exit':
-        //     Component = ExitModal;
-        //     break;
-        // case 'win':
-        //     Component = WinModal;
-        //     break;
-        // case 'cardRules':
-        //     Component = CardRulesModal;
-        //     break;
-        // case 'info':
-        //     Component = InfoModal;
-        //     break;
-        // case 'refreshStars':
-        //     Component = RefreshStarsModal;
-        //     break;
+        case 'week':
+            Component = DoorInfoModal;
+            break;
+        case 'exit':
+            Component = ExitModal;
+            break;
         case 'tg':
             Component = TgModal;
             break;
-        // case 'prizes':
-        //     Component = PrizesModal;
-        //     break; 
+        case 'finishWeek':
+            Component = FinishInfoModal;
+            break;
+        case 'refresh':
+            Component = RefreshCoinsModal;
+            break;
+        case 'wait':
+            Component = WaitModal;
+            break;
+        case 'newWeek':
+            Component = NewWeekModal;
+            break;
+        case 'postLevel':
+            Component = PostLevelModal;
+            break;
         default:
             return;
     }

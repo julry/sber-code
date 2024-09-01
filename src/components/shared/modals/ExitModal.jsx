@@ -1,54 +1,52 @@
 import styled from "styled-components";
-import { WEEK_TO_LOBBY } from "../../../constants/weekToLobby";
+import { SCREENS } from "../../../constants/screens";
 import { useProgress } from "../../../contexts/ProgressContext";
+import { useSizeRatio } from "../../../hooks/useSizeRatio";
 import { Block } from "../Block";
 import { Button } from "../Button";
 import { Modal } from "./Modal";
 
-const Content = styled(Block)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-`;
-
 const Text = styled.p`
-    font-size: var(--font_md);
+    font-size: ${({$ratio}) => $ratio * 22}px;
 `;
 
 const ButtonWrapper = styled.div`
-    display: flex;
     width: 100%;
-    margin-top: var(--spacing_x4);
-    justify-content: space-between;
+    margin-top: var(--spacing_x5);
 
     & button {
-        width: calc((100% - var(--spacing_x2)) / 2);
+        width: 100%;
+    }
+
+    & button + button {
+        margin-top: calc(var(--spacing_x4) - var(--spacing_x1)/2);
     }
 `;
 
-export const ExitModal = ({ week, onClose }) => {
-    const { next } = useProgress();
+export const ExitModal = () => {
+    const ratio = useSizeRatio();
+    const { next, setModal } = useProgress();
 
     const handleQuit = () => {
-        onClose?.();
+        setModal({visible: false});
 
-        next(WEEK_TO_LOBBY[week]);
+        next(SCREENS.LOBBY);
     }
 
     const handleCancel = () => {
-        onClose?.();
+        setModal({visible: false});
     }
 
     return (
         <Modal isDarken>
-            <Content isWhite>
-                <Text>Если ты сейчас выйдешь в меню, то потеряешь прогресс на текущем уровне. Точно хочешь выйти?</Text>
-                <ButtonWrapper>
-                    <Button color="red" onClick={handleQuit}>В меню</Button>
-                    <Button onClick={handleCancel}>Остаться</Button>
+            <Block>
+                <Text $ratio={ratio}>Если ты сейчас выйдешь, то введённые буквы сбросятся. Точно хочешь выйти?</Text>
+            </Block>
+
+            <ButtonWrapper>
+                    <Button onClick={handleQuit}>Да</Button>
+                    <Button onClick={handleCancel}>Нет</Button>
                 </ButtonWrapper>
-            </Content>
         </Modal>
     )
 }

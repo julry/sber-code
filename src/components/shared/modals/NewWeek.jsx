@@ -1,50 +1,57 @@
 import styled from "styled-components";
-import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
-import { Block } from "../Block";
-import { Modal } from "./Modal";
-import { Button } from "../Button";
-import { PointsButton } from "../PointsButton";
+import { useProgress } from "../../../contexts/ProgressContext";
 import { useSizeRatio } from "../../../hooks/useSizeRatio";
-
-const Content = styled(Block)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding-left: var(--spacing_x5);
-    padding-right: var(--spacing_x5);
-    text-align: center;
-`;
+import { Block } from "../Block";
+import { Button } from "../Button";
+import { Ticket } from "../icons/Ticket";
+import { Modal } from "./Modal";
 
 const Text = styled.p`
-    margin-bottom: var(--spacing_x4);
-`
-
-const ButtonStyled = styled(Button)`
-    margin: var(--spacing_x4) 0 0;
-    width: ${({$ratio}) => $ratio * 343}px;
+    font-size: ${({$ratio}) => $ratio * 22}px;
 `;
 
-export const NewWeek = (props) => {
-    const ratio = useSizeRatio();
-    const { user, setVipPoints, setUserInfo } = useProgress();
+const ButtonStyled = styled(Button)`
+    margin: var(--spacing_x5) 0 0;
+`;
 
-    const handleClick = () => {
-        setVipPoints(prev => prev + 1);
-        setUserInfo({weekLeafes: [...user.weekLeafes, CURRENT_WEEK]});
+const TicketWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: ${({$ratio}) => $ratio * 32}px;
+    margin-left: ${({$ratio}) => $ratio * -20}px;
+    margin-top: ${({$ratio}) => $ratio * 15}px;
 
-        props.onClose();
+    & svg {
+        transform: rotate(-30deg);
+        width: ${({$ratio}) => $ratio * 76}px;
+        height: ${({$ratio}) => $ratio * 76}px;
+        margin-right: ${({$ratio}) => $ratio * 14}px;
     }
+`;
 
+
+export const NewWeekModal = () => {
+    const ratio = useSizeRatio();
+    const {setModal, setVipPoints} = useProgress();
+
+    const handleClose = () => {
+        setVipPoints(prev => prev + 1);
+        setModal({visible: false})
+    };
+    
     return (
-        <Modal isDarken isDisabledAnimation>
-            <Content isWhite>
-                <Text>
-                    Держи листик за заход{'\n'}на новой неделе!
+        <Modal>
+            <Block>
+                <Text $ratio={ratio}>
+                        Рады снова{'\n'}тебя видеть! Держи билетик и отправляйся разгадывать новый шифр!
                 </Text>
-                <PointsButton type="leaf" text={1} />
-                <ButtonStyled $ratio={ratio} onClick={handleClick}>Далее</ButtonStyled>
-            </Content>
+                <TicketWrapper $ratio={ratio}>
+                    <Ticket />
+                    <p>1</p>
+                </TicketWrapper>
+            </Block>
+            <ButtonStyled onClick={handleClose}>Вперёд!</ButtonStyled>
         </Modal>
-    )
-}
+    );
+};
