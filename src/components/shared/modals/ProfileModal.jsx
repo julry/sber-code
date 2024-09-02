@@ -18,7 +18,7 @@ const BlockStyled = styled(Block)`
 
 const Text = styled.p`
     font-size: var(--font_md);
-    font-weight: 600; //semibold?
+    font-weight: 600;
 `;
 
 const InfoBlock = styled.div`

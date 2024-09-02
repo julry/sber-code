@@ -8,7 +8,7 @@ import { useSizeRatio } from "../../../hooks/useSizeRatio";
 const Title = styled.p`
     font-size: ${({$ratio}) => $ratio * 22}px;
     margin-bottom: ${({$ratio}) => $ratio * 25}px;
-    /* font-weight: semibold; */
+    font-weight: 600;
 `;
 
 const ButtonStyled = styled(Button)`
@@ -17,7 +17,7 @@ const ButtonStyled = styled(Button)`
 
 const TipBlock = styled.div`
     padding: var(--spacing_small);
-    font-weight: 500;
+    font-weight: 600;
     margin-right: var(--spacing_small);
     border-radius: var(--border-radius-xl);
     border: 1px solid #FFFFFF;
@@ -36,8 +36,7 @@ const InfoText = styled.p`
 `;
 
 export const TicketModal = () => {
-    const ratio = useSizeRatio();
-    const { user, modal, setModal } = useProgress();
+    const { setModal } = useProgress();
 
     return (
         <Modal>

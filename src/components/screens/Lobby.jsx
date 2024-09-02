@@ -1,6 +1,4 @@
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import lobby from '../../assets/images/lobby.png';
 import opened from '../../assets/images/door.png';
@@ -14,6 +12,7 @@ import { LobbyHeader } from "../shared/LobbyHeader";
 import { useState } from "react";
 import { DoneMark } from "../shared/icons";
 import { weeks } from "../../constants/weeks";
+import { useLayoutEffect } from "react";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -95,7 +94,7 @@ const LeftSliderButton = styled(SliderButton)`
 
 const ButtonBlock = styled.div`
     width: 100%;
-    margin-top: ${({$ratio}) => $ratio * 48}px;
+    margin-top: ${({$ratio}) => $ratio * 46}px;
 `;
 
 const RulesButton = styled(Button)`
@@ -110,11 +109,11 @@ const RulesButton = styled(Button)`
 
 export const Lobby = () => {
     const ratio = useSizeRatio();
-    const { passedWeeks, user, setModal} = useProgress();
+    const { passedWeeks, user, setModal, setUserInfo} = useProgress();
     const lastWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const week = lastWeek > CURRENT_WEEK ? CURRENT_WEEK : lastWeek;
     const [shown, setShown] = useState(week - 1);
-    const { registerWeek, isVip } = user;
+    const { registerWeek, isVip, weekTickets } = user;
 
     const NextButton = (
         <NextSliderButton $ratio={ratio} icon={{width: 40, height: 40}} $auto={shown === 3}>
@@ -130,9 +129,14 @@ export const Lobby = () => {
 
     const handleClick = (id) => {
         if (id > week) return;
-        setModal({visible: true, type: 'week', week: id});
+        setModal({visible: true, type: 'week', week: id, onNext: id === 1 ? () => setModal({visible: true, type: 'tipsRules'}) : undefined});
     };
 
+    useLayoutEffect(() => {
+        if (isVip && registerWeek !== CURRENT_WEEK && !weekTickets.includes(CURRENT_WEEK)) {
+            setModal({visible: true, type: 'newWeek'});
+        }
+    }, []);
     return (
         <Wrapper $ratio={ratio}>
             <Header $ratio={ratio}/>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useProgress } from "../../../contexts/ProgressContext";
+import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
 import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
@@ -30,7 +30,7 @@ const AnswerLetter = styled(FlexWrapper)`
     height: ${({$ratio}) => $ratio * 50}px;
     background: rgba(255, 255, 255, 0.2);
     color: white;
-    /* font-weight: semibold; */
+    font-weight: 600;
     font-size: 28px;
     box-shadow: inset 0 0 0 1px #FFFFFF, 0 0 0 ${({$ratio}) => $ratio * 3}px rgba(255, 255, 255, 0.2);
     border-radius: ${({$ratio}) => $ratio * 8}px;
@@ -39,7 +39,6 @@ const AnswerLetter = styled(FlexWrapper)`
         margin-left: ${({$ratio}) => $ratio * 10}px;
     }
 `;
-
 
 const PostText = styled.p`
     margin: ${({$ratio}) => $ratio * 30}px 0 var(--spacing_x4);
@@ -83,12 +82,18 @@ const Letters = styled(PointsWrapper)`
 
 export const PostLevelModal = () => {
     const ratio = useSizeRatio();
-    const { modal, setModal, user, usedTips={1: 2} } = useProgress();
+    const { modal, setModal, user, passedWeeks } = useProgress();
 
+    const { weekTips } = user;
     const currentWeek = weeks.find(({id}) => id === modal.week) ?? {};
 
     const handleClick = () => {
         setModal({visible: false, week: modal.week});
+        if (user.isVip && passedWeeks.length < CURRENT_WEEK) {
+            setTimeout(() => setModal({visible: true, week: modal.week, type: 'refresh'}), 0);
+        } else if (passedWeeks.length === CURRENT_WEEK) {
+            setTimeout(() => setModal({visible: true, type: 'wait'}),0);
+        }
     }
 
     return (
@@ -110,17 +115,19 @@ export const PostLevelModal = () => {
                     {user.isVip && (
                         <PointsWrapper $ratio={ratio}>
                             <Ticket />
-                            <p>{TIPS_TO_POINTS[usedTips[modal.week]].tickets}</p>
+                            <p>{TIPS_TO_POINTS[weekTips?.[modal.week]]?.tickets}</p>
                         </PointsWrapper>
                     )}
                     <PointsWrapper $ratio={ratio}>
                         <Coin />
-                        <p>{TIPS_TO_POINTS[usedTips[modal.week]].coins}</p>
+                        <p>{TIPS_TO_POINTS[weekTips?.[modal.week]]?.coins}</p>
                     </PointsWrapper>
                     <Letters $ratio={ratio}>
-                        {currentWeek.letters.map((letter) => (<p>
-                            {letter}
-                        </p>))}
+                        {currentWeek.letters.map((letter, ind) => (
+                            <p key={ind}>
+                                {letter}
+                            </p>
+                        ))}
                     </Letters>
                 </PointsBlock>
             </Block>

@@ -9,6 +9,8 @@ import { Start } from "../components/screens/Start";
 import { SCREENS } from "./screens";
 import { VipStart } from "../components/screens/VipStart";
 import { Start2 } from "../components/screens/Start2";
+import { Game1 } from "../components/screens/Game1";
+import { Game2 } from "../components/screens/Game2";
 
 export const screens = {
     [SCREENS.INTRO]: Intro,
@@ -18,13 +20,9 @@ export const screens = {
     [SCREENS.VIP_START]: VipStart,
     [SCREENS.START]: Start,
     [SCREENS.START2]: Start2,
-    // [SCREENS.WEEK1]: Week1,
-    // [SCREENS.WEEK2]: Week2,
     [SCREENS.LOBBY]: Lobby,
-    // [SCREENS.LOBBY2]: Lobby2,
-    // [SCREENS.LOBBY3]: Lobby3,
-    // [SCREENS.LOBBY4]: Lobby4,
-    // [SCREENS.GAME1_1]: Game11,
+    [SCREENS.GAME1]: Game1,
+    [SCREENS.GAME2]: Game2,
     // [SCREENS.GAME1_2]: Game12,
     // [SCREENS.GAME1_3]: Game13,
     // [SCREENS.POST_GAME1]: PostGame1,

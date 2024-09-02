@@ -10,3 +10,9 @@ export * from './PostLevelModal';
 export * from './DoorInfoModal';
 export * from './FinishInfoModal';
 export * from './NewWeek';
+export * from './TipsInfo';
+export * from './TipsRules';
+export * from './Tips';
+export * from './LoseModal';
+export * from './WinModal';
+

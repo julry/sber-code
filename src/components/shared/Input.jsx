@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 
@@ -5,6 +6,7 @@ const Container = styled.div`
     position: relative;
     width: ${({$ratio}) => $ratio * 274}px;
     border-radius: var(--border-radius-sm);
+    box-shadow:${({$isCorrect}) => $isCorrect === undefined ? 'none' : $isCorrect === false ? '0 0 0 1px #DD3838' : '0 0 0 1px #14EAB0'};
 `;
 
 const Wrapper = styled.input`
@@ -25,19 +27,48 @@ const Wrapper = styled.input`
 
 const Postfix = styled.div` 
     position: absolute;
-    top: var(--spacing_small);
+    top: var(--spacing_x2);
     right: var(--spacing_small);
     width: var(--icon_size);
     height: var(--icon_size);
 `;
 
-export const Input = ({value, onChange, type, postfix, readOnly, placeholder, ...props}) => {
+export const Input = ({value, onChange, type, postfix, readOnly, placeholder, checkCorrect, ...props}) => {
+    const [isCorrect, setIsCorrect] = useState();
+
     const ratio = useSizeRatio();
+    const handleBlur = () => {
+        console.log(checkCorrect());
+        setIsCorrect(checkCorrect?.())
+    }
+
+    const handleChange = (e) => {
+        setIsCorrect();
+        onChange?.(e);
+    }
 
     return (
-        <Container {...props} $ratio={ratio}>
-            <Wrapper type={type} value={value} onChange={onChange} placeholder={placeholder} readOnly={readOnly} $ratio={ratio} />
+        <Container {...props} $ratio={ratio} $isCorrect={isCorrect}>
+            <Wrapper 
+                type={type} 
+                value={value} 
+                onBlur={handleBlur} 
+                onChange={handleChange} 
+                placeholder={placeholder} 
+                readOnly={readOnly} 
+                $ratio={ratio} 
+            />
             {postfix && (<Postfix>{postfix}</Postfix>)}
+            {isCorrect && (<Postfix>
+                <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.25 5L7.65625 15L3.75 10.4545" stroke="#14EAB0" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </Postfix>)}
+            {isCorrect === false && (<Postfix>
+                <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.47089 5.47088L14.5291 14.5291M14.5291 5.47088L5.47089 14.5291" stroke="#DD3838" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </Postfix>)}
         </Container>
     )
 };

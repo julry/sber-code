@@ -19,7 +19,9 @@ export const FinishInfoModal = () => {
     const currentWeek = weeks.find(({id}) => id === modal.week) ?? {};
 
     const handleClick = () => {
-        setModal({type: 'postLevel', week: modal.week,});
+        setModal({visible: false, week: modal.week, type: undefined});
+        
+        setTimeout(() => setModal({visible: true, type: 'postLevel', week: modal.week}), 0);
     }
 
     return (

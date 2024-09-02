@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useProgress } from "../../../contexts/ProgressContext";
 import { useSizeRatio } from "../../../hooks/useSizeRatio";
 import { Block } from "../Block";
-import { Button } from "../Button";
 import { Coin } from "../icons/Coin";
 import { Ticket } from "../icons/Ticket";
 import { Modal } from "./Modal";

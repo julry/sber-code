@@ -1,4 +1,4 @@
-import {createContext, useContext, useRef, useState} from 'react'
+import {createContext, useContext, useState} from 'react'
 import {SCREENS, NEXT_SCREENS} from "../constants/screens";
 import {screens} from "../constants/screensComponents";
 import {getUrlParam} from "../utils/getUrlParam";
@@ -39,7 +39,7 @@ export function ProgressProvider(props) {
     const [points, setPoints] = useState(INITIAL_STATE.points);
     // points za недели, сюда добавляем набранные красные звезды для випов
     const [vipPoints, setVipPoints] = useState(INITIAL_STATE.vipPoints);
-    const [modal, setModal] = useState({visible: true, type: 'postLevel', week: 1});
+    const [modal, setModal] = useState({visible: false, type: 'postLevel', week: 1});
     // points za неделю, сюда добавляем набранные белые звезды для випов
     const [weekPoints, setWeekPoints] = useState(INITIAL_STATE.weekPoints);
     const [user, setUser] = useState(INITIAL_STATE.user);

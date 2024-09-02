@@ -7,6 +7,7 @@ import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
 import { useState } from "react";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { FlexWrapper } from "../shared/FlexWrapper";
+import { emailRegExp } from "../../constants/regexp";
 
 const Wrapper = styled(FlexWrapper)`
     padding: calc(2 * var(--spacing_x5)) var(--spacing_x4);
@@ -116,18 +117,21 @@ export const Registration2 = () => {
                 type="text" 
                 value={surname} 
                 onChange={(e) => setSurname(e.target.value)} 
+                checkCorrect={() => surname.length > 0}
                 placeholder="Фамилия"
             />
             <InputStyled 
                 type="text" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
+                checkCorrect={() => name.length > 0}
                 placeholder="Имя"
             />
             <InputStyled 
                 type="email" 
                 placeholder="E-mail"
                 value={email} 
+                checkCorrect={() => !!email.match(emailRegExp)}
                 onChange={(e) => setEmail(e.target.value)} 
             />
             <RadioButtonLabel $ratio={ratio}>
@@ -149,7 +153,7 @@ export const Registration2 = () => {
                     {" "}и получение информационных сообщений, а также с правилами проведения акции.
                 </span>
             </RadioButtonLabel>
-            <ButtonStyled color="green" onClick={handleClick} disabled={!name || !email || !isAgreed}>Отправить</ButtonStyled>
+            <ButtonStyled color="green" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed}>Отправить</ButtonStyled>
         </Wrapper>
     )
 }

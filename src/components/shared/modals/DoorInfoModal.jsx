@@ -23,7 +23,7 @@ export const DoorInfoModal = () => {
         setModal({visible: false, week: modal.week});
 
         if (isPassed) return;
-
+        modal.onNext?.();
         next(WEEK_TO_GAME[modal.week]);
     }
 

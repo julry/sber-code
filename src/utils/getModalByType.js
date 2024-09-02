@@ -10,6 +10,11 @@ import {
     WaitModal,
     NewWeekModal,
     PostLevelModal,
+    TipsInfoModal,
+    TipsRulesModal,
+    TipsModal,
+    LoseModal,
+    WinModal,
 } from "../components/shared/modals";
 
 export const getModalByType = (type) => {
@@ -48,6 +53,21 @@ export const getModalByType = (type) => {
             break;
         case 'postLevel':
             Component = PostLevelModal;
+            break;
+        case 'tipsRules':
+            Component = TipsRulesModal;
+            break; 
+        case 'tips': 
+            Component = TipsModal;
+            break;
+        case 'tipsInfo': 
+            Component = TipsInfoModal;
+            break;
+        case 'lose': 
+            Component = LoseModal;
+            break;
+        case 'win': 
+            Component = WinModal;
             break;
         default:
             return;

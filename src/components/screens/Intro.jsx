@@ -61,7 +61,7 @@ const Enter = styled(Button)`
     background: transparent;
     border: none;
     width: auto;
-    padding: 0 1px 0 ${({$ratio}) => $ratio * 3}px;
+    padding: 0 1px 0 0;
     border-radius: 0;
     border-bottom: 1px solid white;
     margin-top: ${({$ratio}) => $ratio * 15}px;

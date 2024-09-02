@@ -8,11 +8,11 @@ import start from '../../assets/images/start1.png';
 import { SCREENS } from "../../constants/screens";
 
 const Wrapper = styled(FlexWrapper)`
-    padding: ${({$ratio}) => $ratio * 50}px ${({$ratio}) => $ratio * 23}px ${({$ratio}) => $ratio * 40}px;
+    padding: ${({$ratio}) => $ratio * 50}px ${({$ratio}) => $ratio * 22}px ${({$ratio}) => $ratio * 40}px;
     text-align: left;
 
     & h3 {
-        margin-top:  ${({$ratio}) => $ratio * 12}px;
+        margin-top:  ${({$ratio}) => $ratio * 10}px;
         text-align: left;
         width: 100%;
         font-size: var(--font_md);

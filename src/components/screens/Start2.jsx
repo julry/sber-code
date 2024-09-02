@@ -33,11 +33,12 @@ const ButtonStyled = styled(Button)`
 
 const Info = styled.div`
     margin-top: var(--spacing_x5);
+    width: 100%;
 `;
 
 const TipBlock = styled.div`
     padding: var(--spacing_small);
-    font-weight: 500;
+    font-weight: 600;
     margin-right: var(--spacing_small);
     border-radius: var(--border-radius-xl);
     border: 1px solid #FFFFFF;

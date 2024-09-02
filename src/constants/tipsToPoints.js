@@ -14,5 +14,9 @@ export const TIPS_TO_POINTS = {
     3: {
         coins: 20,
         tickets: 0,
+    },
+    4: {
+        coins: 0,
+        tickets: 0,
     }
 }
