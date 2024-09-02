@@ -38,7 +38,6 @@ export const Input = ({value, onChange, type, postfix, readOnly, placeholder, ch
 
     const ratio = useSizeRatio();
     const handleBlur = () => {
-        console.log(checkCorrect());
         setIsCorrect(checkCorrect?.())
     }
 

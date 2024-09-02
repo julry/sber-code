@@ -26,13 +26,11 @@ export function ScreenContent() {
         return () => document.body.removeEventListener('touchmove', preventDefault);
     }, [])
 
-    return (
+    return Screen &&(
         <>
-            {Screen && (
-                <Wrapper $blur={modal.visible}>
+            <Wrapper $blur={modal.visible}>
                 <Screen />
-                </Wrapper>
-            )}
+            </Wrapper>
             <AnimatePresence key={modal.type}>
                 {modal.visible && modal.type && getModalByType(modal.type)}
             </AnimatePresence>

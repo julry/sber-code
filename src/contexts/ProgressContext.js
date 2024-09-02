@@ -10,7 +10,7 @@ const INITIAL_USER = {
     university: 'ННГУ им. Лобачевского',
     fac: 'Факультет химических технологий, промышленной экологии и биотехнологий',
     isVip: true,
-    seenRules: true,
+    seenRules: false,
     isTgConnected: false,
     weekTickets: [],
     //send after each opened tip

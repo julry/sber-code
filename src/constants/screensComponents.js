@@ -1,4 +1,3 @@
-// import { Game1 } from "../components/screens/Game1";
 import { Intro } from "../components/screens/Intro";
 import { Lobby } from "../components/screens/Lobby";
 import { Login } from "../components/screens/Login";
@@ -12,6 +11,19 @@ import { Start2 } from "../components/screens/Start2";
 import { Game1 } from "../components/screens/Game1";
 import { Game2 } from "../components/screens/Game2";
 
+import door from '../assets/images/door.png';
+import doorLocked from '../assets/images/doorLocked.png';
+import game from '../assets/images/game.png';
+import intro from '../assets/images/intro.png';
+import lobby from '../assets/images/lobby.png';
+import start1 from '../assets/images/start1.png';
+import start2 from '../assets/images/start2.png';
+import tip from '../assets/images/tip.png';
+import tip21 from '../assets/images/tip21.png';
+import tip22 from '../assets/images/tip22.png';
+import tip23 from '../assets/images/tip23.png';
+import reg from '../assets/images/reg.png';
+
 export const screens = {
     [SCREENS.INTRO]: Intro,
     [SCREENS.REG_1]: Registration1,
@@ -23,22 +35,6 @@ export const screens = {
     [SCREENS.LOBBY]: Lobby,
     [SCREENS.GAME1]: Game1,
     [SCREENS.GAME2]: Game2,
-    // [SCREENS.GAME1_2]: Game12,
-    // [SCREENS.GAME1_3]: Game13,
-    // [SCREENS.POST_GAME1]: PostGame1,
-    // [SCREENS.POST_LEVEL1_1]: PostLevel11,
-    // [SCREENS.POST_LEVEL1_2]: PostLevel12,
-    // [SCREENS.POST_LEVEL1_3]: PostLevel13,
-    // [SCREENS.LIBRARY1]: Library1,
-    // [SCREENS.GAME2_1]: Game21,
-    // [SCREENS.GAME2_2]: Game22,
-    // [SCREENS.GAME2_3]: Game23,
-    // [SCREENS.POST_GAME2]: PostGame2,
-    // [SCREENS.POST_LEVEL2_1]: PostLevel21,
-    // [SCREENS.POST_LEVEL2_2]: PostLevel22,
-    // [SCREENS.POST_LEVEL2_3]: PostLevel23,
-    // [SCREENS.LIBRARY2]: Library2,
-    // [SCREENS.PROFILE]: Profile,
 };
 
-export const preloadImages = [];
+export const preloadImages = [game,door, doorLocked, intro, lobby, start1, start2, tip, tip21, tip22, tip23, reg];

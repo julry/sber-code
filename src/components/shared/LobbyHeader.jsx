@@ -49,13 +49,8 @@ const Progress = styled.div`
 
 export const LobbyHeader = (props) => {
     const ratio = useSizeRatio();
-    const { user, setModal, next, setUserInfo, currentScreen, passedWeeks} = useProgress();
+    const { setModal, passedWeeks} = useProgress();
     const lastWeek = passedWeeks.length + 1;
-
-    const handleClick = () => {
-        setUserInfo({lastPage: currentScreen});
-        next(SCREENS.PROFILE);
-    }
 
     return (
         <Wrapper {...props}>
