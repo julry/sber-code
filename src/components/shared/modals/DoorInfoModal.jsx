@@ -30,7 +30,7 @@ export const DoorInfoModal = () => {
     return (
         <Modal>
             <BlockStyled>
-                <p>Эта дверь ведет <b>в {currentWeek?.whereText}</b></p>
+                <p>Эта дверь ведёт <b>в {currentWeek?.whereText}</b></p>
                 <br />
                 <p>{isPassed ? currentWeek?.factText : 'Давай посмотрим, какой шифр для тебя подготовили!'}</p>
             </BlockStyled>

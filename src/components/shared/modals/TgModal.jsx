@@ -8,6 +8,15 @@ const ButtonStyled = styled(Button)`
     margin: var(--spacing_x5) 0 0;
 `;
 
+const Close = styled(Button)`
+    background: transparent;
+    border: none;
+    width: auto;
+    padding: 0 1px 0 1px;
+    border-radius: 0;
+    border-bottom: 1px solid white;
+    margin-top: var(--spacing_x4);
+`;
 
 export const TgModal = () => {
     const { user, setVipPoints, modal, setUserInfo, setModal } = useProgress();
@@ -39,6 +48,7 @@ export const TgModal = () => {
                 </p>
             </Block>
             <ButtonStyled onClick={handleClick}>Перейти</ButtonStyled>
+            <Close onClick={() => setModal({visible: false})}>Закрыть</Close>
         </Modal>
     )
 }

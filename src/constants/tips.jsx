@@ -10,6 +10,11 @@ const TextSmall = styled.p`
     font-size: ${({$ratio}) => $ratio * 13}px;
 `;
 
+const TipSmall = styled.p`
+    font-size: ${({$ratio}) => $ratio * 25}px;
+    margin-top: ${({$ratio}) => $ratio * -5}px;
+`;
+
 const TextMd = styled.p`
     font-size: ${({$ratio}) => $ratio * 18}px;
 `;
@@ -56,9 +61,12 @@ export const tips = {
             id: '1_3',
             num: 3,
             Component: (props) => (
-                <TextLg {...props}>
-                    Р = У
-                </TextLg>
+                <>
+                    <TextLg {...props}>
+                        Р = У
+                    </TextLg>
+                    <TipSmall {...props}>(+3)</TipSmall>
+                </>
             )
         }
     ],

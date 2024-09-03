@@ -6,9 +6,11 @@ import { useProgress } from "../../contexts/ProgressContext";
 import { useState } from "react";
 import { faculties, universities } from "../../constants/universities";
 import { FlexWrapper } from "../shared/FlexWrapper";
+import { SCREENS } from "../../constants/screens";
+import { BackButton } from "../shared/BackButton";
 
 const Wrapper = styled(FlexWrapper)`
-    padding: calc( 2 * var(--spacing_x5)) var(--spacing_x4);
+    padding: calc(4 * var(--spacing_x5)) var(--spacing_x4);
 `;
 
 const ButtonStyled = styled(Button)`
@@ -28,6 +30,12 @@ const Text = styled.p`
 
 const SelectStyled = styled(Select)`
     margin-top: var(--spacing_small);
+`;
+
+const BackStyled = styled(BackButton)`
+    position: absolute;
+    top: var(--spacing_x5);
+    left: var(--spacing_x5);
 `;
 
 export const Registration1 = () => {
@@ -51,6 +59,7 @@ export const Registration1 = () => {
 
     return (
         <Wrapper>
+            <BackStyled onClick={() => next(SCREENS.INTRO)} />
                 <Text>
                     Укажи свой вуз и факультет: обрати внимание, что для получения призов тебе нужно будет взять с собой свой студенческий билет.
                 </Text>

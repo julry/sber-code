@@ -78,7 +78,7 @@ export const TipsModal = () => {
     const ratio = useSizeRatio();
     const {week} = modal;
     const [shown, setShown] = useState(user.weekTips?.[modal.week] ? user.weekTips?.[modal.week] - 1 : 0);
-    const [fullAnswer, setFullAnswer] = useState(user.weekTips[week] === 3);
+    const [fullAnswer, setFullAnswer] = useState(user.weekTips[week] >= 3);
     const [isCorrectShown, setIsCorrectShown] = useState(user.weekTips[week] === 4);
 
     const sliderRef = useRef();
@@ -104,10 +104,11 @@ export const TipsModal = () => {
 
     const handleAnswer = () => {
         setIsCorrectShown(true);
+        sliderRef.current.slickGoTo(3);
         if (user.weekTips[week] === 4) return;
         setUserInfo({weekTips: {...user.weekTips, [week]: user.weekTips[week] + 1}});
     }
-    
+
     return (
         <Modal>
            <BlockStyled hasCloseIcon onClose={() => setModal({visible: false, week})}>
@@ -117,7 +118,7 @@ export const TipsModal = () => {
                     slidesToShow={1}
                     slidesToScroll={1}
                     adaptiveHeight={true}
-                    initialSlide={user.weekTips?.[modal.week] ?? 0}
+                    initialSlide={shown}
                     infinite
                     speed={300}
                     draggable={false}

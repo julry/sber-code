@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useProgress } from "../../../contexts/ProgressContext";
+import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
 import { useSizeRatio } from "../../../hooks/useSizeRatio";
 import { Block } from "../Block";
 import { Button } from "../Button";
@@ -33,10 +33,11 @@ const TicketWrapper = styled.div`
 
 export const NewWeekModal = () => {
     const ratio = useSizeRatio();
-    const {setModal, setVipPoints} = useProgress();
+    const {user, setModal, setVipPoints, setUserInfo} = useProgress();
 
     const handleClose = () => {
         setVipPoints(prev => prev + 1);
+        setUserInfo({weekTickets: [...user.weekTickets, CURRENT_WEEK]})
         setModal({visible: false})
     };
     

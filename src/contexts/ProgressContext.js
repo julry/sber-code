@@ -19,7 +19,40 @@ const INITIAL_USER = {
     registerWeek: 2,
 };
 
-export const CURRENT_WEEK = 2;
+
+const USER = {
+    id: '13526413',
+    name: 'Иванов Иван',
+    email: 'ivan2001@mail.ru',
+    university: 'ННГУ им. Лобачевского',
+    fac: 'Факультет химических технологий, промышленной экологии и биотехнологий',
+    isTarget: true,
+    seenRules: false,
+    isTgConnected: false,
+    weekTickets: '1, 2, 3',
+    weekTips1: 0,
+    weekTips2: 0,
+    weekTips3: 0,
+    weekTips4: 0,
+    registerWeek: 1,
+    points: 0,
+    weekPoints: 0,
+    targetPoints: 0,
+    passedWeeks: '1, 2, 3',
+    // currentWeek: 3 ?
+};
+
+const getCurrentWeek = () => {
+    const today = new Date();
+
+    if (today < new Date(2024, 8, 16)) return 1;
+    if (today < new Date(2024, 8, 23)) return 2;
+    if (today < new Date(2024, 8, 30)) return 3;
+
+    return 4;
+}
+
+export const CURRENT_WEEK = getCurrentWeek();
 
 const INITIAL_STATE = {
     screen: SCREENS.INTRO,

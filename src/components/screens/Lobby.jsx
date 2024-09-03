@@ -137,6 +137,7 @@ export const Lobby = () => {
             setModal({visible: true, type: 'newWeek'});
         }
     }, []);
+    
     return (
         <Wrapper $ratio={ratio}>
             <Header $ratio={ratio}/>
@@ -166,7 +167,7 @@ export const Lobby = () => {
                             {id <= week ? (
                                 <OpenDoor $ratio={ratio}>
                                     {passedWeeks.includes(id) && (
-                                        <DoneMarkStyled $ratio={ratio}/> 
+                                        <DoneMarkStyled $ratio={ratio} onClick={() => handleClick(id)}/> 
                                     )}
                                 </OpenDoor>
                             ) : <ClosedDoor $ratio={ratio}/>}

@@ -6,11 +6,11 @@ import { useProgress } from "../../contexts/ProgressContext";
 import { SCREENS } from "../../constants/screens";
 import { Logo } from "../shared/Logo";
 import { FlexWrapper } from "../shared/FlexWrapper";
-import { IntroText } from "../shared/texts/IntroText";
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Input } from "../shared/Input";
 import { LoginText } from "../shared/texts/LoginText";
+import { BackButton } from "../shared/BackButton";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -75,6 +75,12 @@ const Text = styled.p`
     margin-bottom: ${({$ratio}) => $ratio * 28}px;
 `;
 
+const BackStyled = styled(BackButton)`
+    position: absolute;
+    top: var(--spacing_x5);
+    left: var(--spacing_x5);
+`;
+
 const IncorrectText = styled.p`
     width: ${({$ratio}) => $ratio * 274}px;
     font-size: var(--font_sm);
@@ -94,6 +100,7 @@ export const Login = () => {
 
     return (
         <Wrapper>
+            <BackStyled onClick={() => next(SCREENS.INTRO)} />
             <Logo />
             <Light $ratio={ratio}/>
             <Picture />
