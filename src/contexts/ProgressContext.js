@@ -19,7 +19,6 @@ const INITIAL_USER = {
     registerWeek: 2,
 };
 
-
 const USER = {
     id: '13526413',
     name: 'Иванов Иван',
@@ -52,7 +51,7 @@ const getCurrentWeek = () => {
     return 4;
 }
 
-export const CURRENT_WEEK = getCurrentWeek();
+export const CURRENT_WEEK = 2;
 
 const INITIAL_STATE = {
     screen: SCREENS.INTRO,
