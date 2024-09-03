@@ -8,7 +8,7 @@ import start from '../../assets/images/start1.png';
 import { SCREENS } from "../../constants/screens";
 
 const Wrapper = styled(FlexWrapper)`
-    padding: ${({$ratio}) => $ratio * 50}px ${({$ratio}) => $ratio * 22}px ${({$ratio}) => $ratio * 40}px;
+    padding: ${({$ratio}) => $ratio * 43}px ${({$ratio}) => $ratio * 22}px ${({$ratio}) => $ratio * 20}px;
     text-align: left;
 
     & h3 {
@@ -16,6 +16,8 @@ const Wrapper = styled(FlexWrapper)`
         text-align: left;
         width: 100%;
         font-size: var(--font_md);
+        position: relative;
+        z-index: 4;
 
         &:first-of-type {
             margin-top: 0;
@@ -39,6 +41,8 @@ const Title = styled(Rules1Text)`
 const SmallText = styled.p`
     font-size: var(--font_xs);
     margin-top: var(--spacing_x2);
+    position: relative;
+    z-index: 4;
 `;
 
 const ButtonStyled = styled(Button)`

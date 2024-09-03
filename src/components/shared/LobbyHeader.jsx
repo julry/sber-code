@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { IconButton } from "./Button";
 import { useProgress } from "../../contexts/ProgressContext";
-import { SCREENS } from "../../constants/screens";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { Profile, Cap } from "./icons";
 

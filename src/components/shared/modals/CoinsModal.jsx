@@ -55,8 +55,8 @@ const List = styled.div`
     }
 `;
 
-export const TicketModal = () => {
-    const { modal, setModal } = useProgress();
+export const CoinsModal = () => {
+    const { modal, setModal, user } = useProgress();
     const ratio = useSizeRatio();
 
     const handleClose = () => {
@@ -73,30 +73,29 @@ export const TicketModal = () => {
         <Modal>
             <BlockStyled $ratio={ratio}>
                 <div>
-                    <Title $ratio={ratio}>Это билетики.</Title>
-                    <p>Билетики даются:</p>
+                    <Title $ratio={ratio}>Это монетки.</Title>
+                    <p>Монетки даются:</p>
                     <List $ratio={ratio}>
                         <ul>
-                            <li>За еженедельный вход в игру</li>
                             <li>За решение шифра</li>
-                            <li>За подписку на телеграм-канал</li>
+                            {!user.isVip && <li>За подписку на телеграм-канал</li>}
                         </ul>
                     </List>
                     <InfoText $ratio={ratio}>
-                        На каждом уровне тебе доступны <b>3 подсказки</b>. Если найдёшь решение без них, то заработаешь 5 билетиков.
+                        На каждом уровне тебе доступны <b>3 подсказки</b>. Если найдёшь решение без них, то получишь 100 монеток.
                     </InfoText>
                     <p>Если используешь</p>
                     <InfoBlock>
                         <TipBlock>1 подсказку</TipBlock>
-                        <p>начислим 3 билетика</p>
+                        <p>начислим 70 монеток</p>
                     </InfoBlock>
                     <InfoBlock>
                         <TipBlock>2 подсказки</TipBlock>
-                        <p>начислим 1 билетик</p>
+                        <p>начислим 50 монеток</p>
                     </InfoBlock>
                     <InfoBlock>
                         <TipBlock>3 подсказки</TipBlock>
-                        <p>начислим 0 билетиков</p>
+                        <p>начислим 20 монеток</p>
                     </InfoBlock>
                 </div>
             </BlockStyled>

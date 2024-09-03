@@ -11,7 +11,7 @@ import { SCREENS } from "../../constants/screens";
 import { BackButton } from "../shared/BackButton";
 
 const Wrapper = styled(FlexWrapper)`
-    padding: ${({$ratio}) => $ratio * 50}px ${({$ratio}) => $ratio * 23}px ${({$ratio}) => $ratio * 40}px;
+    padding: ${({$ratio}) => $ratio * 43}px ${({$ratio}) => $ratio * 23}px ${({$ratio}) => $ratio * 40}px;
     text-align: left;
     background: url(${start}) no-repeat center 100% / cover;
 `;

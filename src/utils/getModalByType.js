@@ -15,6 +15,8 @@ import {
     TipsModal,
     LoseModal,
     WinModal,
+    TicketModal,
+    CoinsModal
 } from "../components/shared/modals";
 
 export const getModalByType = (type) => {
@@ -68,6 +70,12 @@ export const getModalByType = (type) => {
             break;
         case 'win': 
             Component = WinModal;
+            break;
+        case 'tickets': 
+            Component = TicketModal;
+            break;  
+        case 'coins': 
+            Component = CoinsModal;
             break;
         default:
             return;

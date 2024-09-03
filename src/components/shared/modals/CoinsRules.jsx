@@ -32,6 +32,14 @@ export const CoinsRulesModal = () => {
     const { user, points, vipPoints, weekPoints, setModal, } = useProgress();
     const ratio = useSizeRatio();
 
+    const handleTicketClick = () => {
+        setModal({visible: true, type: 'tickets', onClose: () => setModal({visible: true, type: 'points'})});
+    }
+
+    const handleCoinsClick = () => {
+        setModal({visible: true, type: 'coins', onClose: () => setModal({visible: true, type: 'points'})});
+    }
+
     return (
         <Modal>
             <Block hasCloseIcon onClose={() => setModal({visible: false})}>
@@ -39,17 +47,17 @@ export const CoinsRulesModal = () => {
                 <Wrapper>
                     {user.isVip ? (
                         <>
-                            <Wrapper $ratio={ratio}>
+                            <Wrapper $ratio={ratio} onClick={handleCoinsClick}>
                                 <Coin />
                                 <Text>{weekPoints} / 500</Text>
                             </Wrapper>
-                            <Wrapper $ratio={ratio}>
+                            <Wrapper $ratio={ratio} onClick={handleTicketClick}>
                                 <Ticket />
                                 <Text>{vipPoints} / 30</Text>
                             </Wrapper>
                         </>
                     ) : (
-                        <Wrapper $ratio={ratio}>
+                        <Wrapper $ratio={ratio} onClick={handleCoinsClick}>
                             <Coin />
                             <Text>{points} / 520</Text>
                         </Wrapper>

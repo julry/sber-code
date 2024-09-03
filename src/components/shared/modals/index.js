@@ -15,4 +15,6 @@ export * from './TipsRules';
 export * from './Tips';
 export * from './LoseModal';
 export * from './WinModal';
+export * from './TicketModal';
+export * from './CoinsModal';
 
