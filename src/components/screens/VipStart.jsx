@@ -5,6 +5,7 @@ import { Button } from "../shared/Button";
 import styled from "styled-components";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { Ticket } from "../shared/icons/Ticket";
+import { updateUser } from "../../utils/updateUser";
 
 const Wrapper = styled(FlexWrapper)`
     padding: ${({$ratio}) => $ratio * 40}px ${({$ratio}) => $ratio * 32}px;
@@ -38,10 +39,21 @@ const TicketWrapper = styled.div`
 
 export const VipStart = () => {
     const ratio = useSizeRatio();
-    const {setVipPoints, next} = useProgress();
+    const {setVipPoints, next, setUserInfo, user} = useProgress();
 
     const handleNext = () => {
-        setVipPoints(prev => prev + 1);
+        const data = {
+            weekTickets: (user.weekTickets.includes(1) ? [...user.weekTickets, 1] : user.weekTickets).join(',')
+        }
+
+        setVipPoints(prev => {
+            data.targetPoints = prev + 1;
+
+            return prev + 1;
+        });
+
+        setUserInfo({weekTickets: user.weekTickets.includes(1) ? [...user.weekTickets, 1] : user.weekTickets});
+        updateUser(user.recordId, data);
         next();
     }
 

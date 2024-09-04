@@ -6,6 +6,7 @@ import { tips } from "../../../constants/tips";
 import { weeks } from "../../../constants/weeks";
 import { useProgress } from "../../../contexts/ProgressContext";
 import { useSizeRatio } from "../../../hooks/useSizeRatio";
+import { updateUser } from "../../../utils/updateUser";
 import { Block } from "../Block";
 import { Button, IconButton } from "../Button";
 import { FlexWrapper } from "../FlexWrapper";
@@ -99,7 +100,10 @@ export const TipsModal = () => {
         if (user.weekTips[week] === 3) {
             setFullAnswer(true);
             sliderRef.current.slickGoTo(3);
-        } else setUserInfo({weekTips: {...user.weekTips, [week]: user.weekTips[week] + 1}});
+        } else {
+            updateUser(user.recordId, {[`weekTips${week}`]: user.weekTips[week] + 1});
+            setUserInfo({weekTips: {...user.weekTips, [week]: user.weekTips[week] + 1}});
+        }
     }
 
     const handleAnswer = () => {
@@ -107,6 +111,7 @@ export const TipsModal = () => {
         sliderRef.current.slickGoTo(3);
         if (user.weekTips[week] === 4) return;
         setUserInfo({weekTips: {...user.weekTips, [week]: user.weekTips[week] + 1}});
+        updateUser(user.recordId, {[`weekTips${week}`]: user.weekTips[week] + 1});
     }
 
     return (

@@ -11,6 +11,8 @@ import { AnimatePresence } from "framer-motion";
 import { Input } from "../shared/Input";
 import { LoginText } from "../shared/texts/LoginText";
 import { BackButton } from "../shared/BackButton";
+import { emailRegExp } from "../../constants/regexp";
+import { getUserInfo } from "../../utils/getUserInfo";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -93,9 +95,28 @@ export const Login = () => {
     const { next, user, setUserInfo } = useProgress();
     const ratio = useSizeRatio();
 
-    const handleNext = () => {
-        if (!isIncorrectEmail) setIsIncorrectEmail(true);
-        else next(user.seenInfo ? SCREENS.LOBBY : SCREENS.START);
+    const handleNext = async () => {
+        if (!!email && !email.match(emailRegExp)) {
+            setIsIncorrectEmail(true);
+            return;
+        }
+        
+        const info = await getUserInfo(email);
+
+        if (info.isError) {
+            setIsIncorrectEmail(true);
+            return;
+        }
+
+        const { userInfo, passedWeeks, points, weekPoints, vipPoints } = info;
+
+        // setUserInfo({...userInfo});
+        // setPassedWeeks(passedWeeks);
+        // setPoints(points);
+        // setWeekPoints(weekPoints);
+        // setVipPoints(vipPoints);
+        
+        next(userInfo.seenInfo ? SCREENS.LOBBY : SCREENS.START);
     };
 
     return (

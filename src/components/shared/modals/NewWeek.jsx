@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
 import { useSizeRatio } from "../../../hooks/useSizeRatio";
+import { updateUser } from "../../../utils/updateUser";
 import { Block } from "../Block";
 import { Button } from "../Button";
 import { Ticket } from "../icons/Ticket";
@@ -36,8 +37,18 @@ export const NewWeekModal = () => {
     const {user, setModal, setVipPoints, setUserInfo} = useProgress();
 
     const handleClose = () => {
-        setVipPoints(prev => prev + 1);
-        setUserInfo({weekTickets: [...user.weekTickets, CURRENT_WEEK]})
+        const data = {
+            weekTickets: [...user.weekTickets, CURRENT_WEEK].join(',')
+        }
+
+        setVipPoints(prev => {
+            data.targetPoints = prev + 1;
+
+            return prev + 1;
+        });
+
+        setUserInfo({weekTickets: [...user.weekTickets, CURRENT_WEEK]});
+        updateUser(user.recordId, data);
         setModal({visible: false})
     };
     

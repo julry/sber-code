@@ -4,10 +4,10 @@ import { useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { Button } from "../shared/Button";
 import { FlexWrapper } from "../shared/FlexWrapper";
-import { Rules1Text } from "../shared/texts/Rules1Text";
 import start from '../../assets/images/start2.png';
 import { Rules2Text } from "../shared/texts/Rules2Text";
 import { SCREENS } from "../../constants/screens";
+import { updateUser } from "../../utils/updateUser";
 import { BackButton } from "../shared/BackButton";
 
 const Wrapper = styled(FlexWrapper)`
@@ -63,7 +63,11 @@ export const Start2 = () => {
     const {next, user, setUserInfo} = useProgress();
 
     const handleNextPage = () => {
+        const data = {
+            seenInfo: true,
+        };
         setUserInfo({seenInfo: true});
+        updateUser(user.recordId, data);
         next(SCREENS.LOBBY);
     }
 
