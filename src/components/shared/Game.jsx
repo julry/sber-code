@@ -1,6 +1,6 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import game from '../../assets/images/game.png';
+import { TIPS_TO_POINTS } from "../../constants/tipsToPoints";
 import { useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { BackButton } from "./BackButton";
@@ -40,7 +40,11 @@ const FlexBlock = styled.div`
 `;
 
 export const Game = ({ onAnswer, week, buttonDisabled, children }) => {
-    const { user, setModal } = useProgress();
+    const { 
+        user, setModal, currentWeek, passedWeeks, setPassedWeeks,
+        weekPoints, points, vipPoints, 
+        setWeekPoints, setPoints, setVipPoints, updateUser 
+    } = useProgress();
     const ratio = useSizeRatio();
 
     const handleClickTip = () => {
@@ -49,6 +53,39 @@ export const Game = ({ onAnswer, week, buttonDisabled, children }) => {
 
     const handleClickInfo = () => {
         setModal({visible: true, type: 'tipsInfo'});
+    }
+
+
+    const handleAnswer = () => {
+        const isCorrect = onAnswer();
+
+        if (!isCorrect) return;
+
+        const {coins, tickets} = TIPS_TO_POINTS[user.weekTips[week]] ?? {};
+
+        const data = {
+            passedWeeks: (passedWeeks.includes(week) ? passedWeeks : [...passedWeeks, week]).join(',')
+        };
+
+        
+        if (user.isVip) {
+            if (week === currentWeek) {
+                data[`week${currentWeek}Points`] = weekPoints + coins;
+                setWeekPoints(prev => prev + coins);
+            }
+
+            data.targetPoints = vipPoints + tickets;
+            setVipPoints(prev => prev + tickets);
+        } else {
+            data.points = points + coins;
+            setPoints(prev => prev + coins);
+        }
+
+        setPassedWeeks(prev => {
+            const weeks = prev.includes(week) ? prev : [...prev, week];
+            return weeks;
+        });
+        updateUser(data);
     }
 
     return (
@@ -66,7 +103,7 @@ export const Game = ({ onAnswer, week, buttonDisabled, children }) => {
                 </FlexBlock>
             </Header>
             {children}
-            <Button disabled={buttonDisabled} onClick={onAnswer}>Ввести</Button>
+            <Button disabled={buttonDisabled} onClick={handleAnswer}>Ввести</Button>
         </Wrapper>
     )
 }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
+import { useProgress } from "../../../contexts/ProgressContext";
 import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
@@ -82,16 +82,16 @@ const Letters = styled(PointsWrapper)`
 
 export const PostLevelModal = () => {
     const ratio = useSizeRatio();
-    const { modal, setModal, user, passedWeeks } = useProgress();
+    const { modal, setModal, user, currentWeek, passedWeeks } = useProgress();
 
     const { weekTips } = user;
-    const currentWeek = weeks.find(({id}) => id === modal.week) ?? {};
+    const currentActiveWeek = weeks.find(({id}) => id === modal.week) ?? {};
 
     const handleClick = () => {
         setModal({visible: false, week: modal.week});
-        if (user.isVip && passedWeeks.length < CURRENT_WEEK) {
+        if (user.isVip && passedWeeks.length < currentWeek) {
             setTimeout(() => setModal({visible: true, week: modal.week, type: 'refresh'}), 0);
-        } else if (passedWeeks.length === CURRENT_WEEK) {
+        } else if (passedWeeks.length === currentWeek) {
             setTimeout(() => setModal({visible: true, type: 'wait'}),0);
         }
     }
@@ -99,7 +99,7 @@ export const PostLevelModal = () => {
     return (
         <Modal>
             <Block>
-                {currentWeek?.answer.map((ans) => (
+                {currentActiveWeek?.answer.map((ans) => (
                     <AnswerBlock key={`ans_${ans.length}`}>
                         {
                             ans.split('').map((l, i) => (
@@ -110,7 +110,7 @@ export const PostLevelModal = () => {
                         }
                     </AnswerBlock>
                 ))}
-                <PostText $ratio={ratio}>{currentWeek?.postText}</PostText>
+                <PostText $ratio={ratio}>{currentActiveWeek?.postText}</PostText>
                 <PointsBlock>
                     {user.isVip && (
                         <PointsWrapper $ratio={ratio}>
@@ -123,7 +123,7 @@ export const PostLevelModal = () => {
                         <p>{TIPS_TO_POINTS[weekTips?.[modal.week]]?.coins}</p>
                     </PointsWrapper>
                     <Letters $ratio={ratio}>
-                        {currentWeek.letters.map((letter, ind) => (
+                        {currentActiveWeek.letters.map((letter, ind) => (
                             <p key={ind}>
                                 {letter}
                             </p>

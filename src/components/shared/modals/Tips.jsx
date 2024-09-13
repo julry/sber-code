@@ -6,7 +6,6 @@ import { tips } from "../../../constants/tips";
 import { weeks } from "../../../constants/weeks";
 import { useProgress } from "../../../contexts/ProgressContext";
 import { useSizeRatio } from "../../../hooks/useSizeRatio";
-import { updateUser } from "../../../utils/updateUser";
 import { Block } from "../Block";
 import { Button, IconButton } from "../Button";
 import { FlexWrapper } from "../FlexWrapper";
@@ -75,7 +74,7 @@ const ButtonStyled = styled(Button)`
 `;
 
 export const TipsModal = () => {
-    const {setModal, user, modal, setUserInfo} = useProgress();
+    const {setModal, user, modal, setUserInfo, updateUser} = useProgress();
     const ratio = useSizeRatio();
     const {week} = modal;
     const [shown, setShown] = useState(user.weekTips?.[modal.week] ? user.weekTips?.[modal.week] - 1 : 0);
@@ -101,7 +100,8 @@ export const TipsModal = () => {
             setFullAnswer(true);
             sliderRef.current.slickGoTo(3);
         } else {
-            updateUser(user.recordId, {[`weekTips${week}`]: user.weekTips[week] + 1});
+            updateUser({weekTips: Object.values({...user.weekTips, [week]: user.weekTips[week] + 1}).join(',')});
+            // updateUser(Object.values({...user.weekTips, [week]: user.weekTips[week] + 1}).join(','));
             setUserInfo({weekTips: {...user.weekTips, [week]: user.weekTips[week] + 1}});
         }
     }
@@ -110,8 +110,8 @@ export const TipsModal = () => {
         setIsCorrectShown(true);
         sliderRef.current.slickGoTo(3);
         if (user.weekTips[week] === 4) return;
+        updateUser({weekTips: Object.values({...user.weekTips, [week]: user.weekTips[week] + 1}).join(',')});
         setUserInfo({weekTips: {...user.weekTips, [week]: user.weekTips[week] + 1}});
-        updateUser(user.recordId, {[`weekTips${week}`]: user.weekTips[week] + 1});
     }
 
     return (

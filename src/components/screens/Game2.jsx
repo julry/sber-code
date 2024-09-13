@@ -69,6 +69,7 @@ export const Game2 = () => {
                     'похвалить или выслушать, когда тебе грустно.'
             });
 
+            return true;
         } else  setModal({visible: true, type: 'lose', week: 2, text: 'Ты был совсем близко, нужно всего лишь подумать над шифром ещё немного!'});
     }
 

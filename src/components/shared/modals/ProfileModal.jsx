@@ -66,7 +66,7 @@ const PointsWrapper = styled(Wrapper)`
     }
 `;
 
-export const ProfileModal = (props) => {
+export const ProfileModal = () => {
     const ratio = useSizeRatio();
     const { user, weekPoints, vipPoints, points, setModal } = useProgress();
 
@@ -96,7 +96,7 @@ export const ProfileModal = (props) => {
                             <>
                                 <PointsWrapper $ratio={ratio}>
                                     <Coin />
-                                    <Text>{weekPoints} / 500</Text>
+                                    <Text>{weekPoints} / 100</Text>
                                 </PointsWrapper>
                                 <PointsWrapper $ratio={ratio}>
                                     <Ticket />

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { TIPS_TO_POINTS } from "../../constants/tipsToPoints";
 import { weeks } from "../../constants/weeks";
 import { useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
@@ -68,7 +69,8 @@ export const Game1 = () => {
                 text: 'Думаешь, совмещать работу и учёбу невозможно? На самом деле это реально! В Сбере ты можешь согласовать с руководителем удобный для себя график и работать от 20 часов в неделю.'
             });
 
-        } else  setModal({visible: true, type: 'lose', week: 1, text: 'Кажется, что‑то не так!\nПопробуешь ещё раз?'});
+            return true;
+        } else setModal({visible: true, type: 'lose', week: 1, text: 'Кажется, что‑то не так!\nПопробуешь ещё раз?'});
     }
 
     return (

@@ -12,7 +12,6 @@ import { Input } from "../shared/Input";
 import { LoginText } from "../shared/texts/LoginText";
 import { BackButton } from "../shared/BackButton";
 import { emailRegExp } from "../../constants/regexp";
-import { getUserInfo } from "../../utils/getUserInfo";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -92,29 +91,27 @@ const IncorrectText = styled.p`
 export const Login = () => {
     const [isIncorrectEmail, setIsIncorrectEmail] = useState(false);
     const [email, setEmail] = useState('');
-    const { next, user, setUserInfo } = useProgress();
+    const [isSending, setIsSending] = useState(false);
+    const { next, getUserInfo } = useProgress();
     const ratio = useSizeRatio();
 
     const handleNext = async () => {
+        if (isSending) return;
+
         if (!!email && !email.match(emailRegExp)) {
             setIsIncorrectEmail(true);
             return;
         }
-        
-        const info = await getUserInfo(email);
+        setIsSending(true);
+        const info = await getUserInfo(email.toLowerCase());
+        setIsSending(false);
 
-        if (info.isError) {
+        if (info?.isError) {
             setIsIncorrectEmail(true);
             return;
         }
 
-        const { userInfo, passedWeeks, points, weekPoints, vipPoints } = info;
-
-        // setUserInfo({...userInfo});
-        // setPassedWeeks(passedWeeks);
-        // setPoints(points);
-        // setWeekPoints(weekPoints);
-        // setVipPoints(vipPoints);
+        const { userInfo } = info;
         
         next(userInfo.seenInfo ? SCREENS.LOBBY : SCREENS.START);
     };

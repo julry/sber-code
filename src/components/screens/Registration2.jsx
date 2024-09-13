@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import {uid} from "uid";
 import { SCREENS } from "../../constants/screens";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
 import reg from '../../assets/images/reg.png';
-import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
+import { useProgress } from "../../contexts/ProgressContext";
 import { useState } from "react";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { FlexWrapper } from "../shared/FlexWrapper";
@@ -91,19 +92,60 @@ const Link = styled.a`
   color: inherit;
 `;
 
+const IncorrectText = styled.p`
+    width: ${({$ratio}) => $ratio * 274}px;
+    font-size: var(--font_sm);
+    margin-top: var(--spacing_small);
+`;
+
+const Enter = styled(Button)`
+    background: transparent;
+    border: none;
+    width: auto;
+    padding: 0 1px 0 ${({$ratio}) => $ratio * 3}px;
+    border-radius: 0;
+    border-bottom: 1px solid white;
+    margin-top: ${({$ratio}) => $ratio * 15}px;
+`;
+
 export const Registration2 = () => {
     const ratio = useSizeRatio();
-    const { next, setUserInfo, user } = useProgress();
+    const [isSending, setIsSending] = useState(false);
+    const { next, setUserInfo, user, registrateUser, getUserInfo, currentWeek } = useProgress();
+    const [isAlreadyHas, setIsAlreadyHas] = useState(false);
+    const [isNetworkError, setIsNetworkError] = useState(false);
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [isAgreed, setIsAgreed] = useState('');
 
-    const handleClick = () => {
-        setUserInfo({name: `${surname} ${name}`, email, registerWeek: CURRENT_WEEK});
+    const handleClick = async () => {
+        if (isSending) return;
+        const id = uid(7);
+        setIsSending(true);
+        const info = await getUserInfo(email.toLowerCase());
+        if (info && !info?.isError) {
+            setIsAlreadyHas(true);
+
+            return;
+        }
+
+        setUserInfo({name: `${name} ${surname}`, email: email.toLowerCase(), registerWeek: currentWeek, id});
+        const regInfo = await registrateUser({name: `${name} ${surname}`, email: email.toLowerCase(), id});
+
+        if (regInfo?.isError) {
+            setIsNetworkError(true);
+            return;
+        }
+        setIsSending(false);
+
         if (user.isVip) next(SCREENS.VIP_START);
-        //send data to serv => user + name, email
         next(SCREENS.START);
+    }
+
+    const handleEnter = async () => {
+        if (isSending) return;
+        next(user.seenInfo ? SCREENS.LOBBY : SCREENS.START);
     }
 
     return (
@@ -131,9 +173,14 @@ export const Registration2 = () => {
                 type="email" 
                 placeholder="E-mail"
                 value={email} 
-                checkCorrect={() => !!email.match(emailRegExp)}
+                checkCorrect={() => !!email.match(emailRegExp) && !isAlreadyHas}
                 onChange={(e) => setEmail(e.target.value)} 
             />
+            {isAlreadyHas && (
+                <IncorrectText $ratio={ratio}>
+                    Такая почта уже зарегистрирована. Попробуй ввести ещё раз или войди, чтобы разгадывать шифры.
+                </IncorrectText>
+            )}
             <RadioButtonLabel $ratio={ratio}>
                 <InputRadioButton
                     type="checkbox"
@@ -144,16 +191,32 @@ export const Registration2 = () => {
                 <RadioIconStyled/>
                 <span>
                     Я согласен(а) на{"\u00A0"}
-                    {/* <Link
-                    href={"https://fut.ru/personal_data_policy/"}
-                    target="_blank"
-                    > */}
+                    <Link
+                        href={"https://doc.fut.ru/personal_data_policy.pdf"}
+                        target="_blank"
+                    >
                     обработку персональных данных
-                    {/* </Link>{" "} */}
+                    </Link>{" "}
                     {" "}и получение информационных сообщений, а также с правилами проведения акции.
                 </span>
             </RadioButtonLabel>
-            <ButtonStyled color="green" onClick={handleClick} disabled={!name || !email || !surname || !isAgreed}>Отправить</ButtonStyled>
+            {isNetworkError  && (
+                <IncorrectText $ratio={ratio}>
+                    Что-то пошло не так. Попробуй позже.
+                </IncorrectText>
+            )}
+            <ButtonStyled 
+                color="green" 
+                onClick={handleClick} 
+                disabled={!name || !email || !surname || !isAgreed || isSending}
+            >
+                Отправить
+            </ButtonStyled>
+            {
+                isAlreadyHas && (
+                    <Enter $ratio={ratio} onClick={handleEnter}>Войти</Enter>
+                )
+            }
         </Wrapper>
     )
 }

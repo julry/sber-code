@@ -4,7 +4,7 @@ import lobby from '../../assets/images/lobby.png';
 import opened from '../../assets/images/door.png';
 import closed from '../../assets/images/doorLocked.png';
 import { useSizeRatio } from "../../hooks/useSizeRatio";
-import { CURRENT_WEEK, useProgress } from "../../contexts/ProgressContext";
+import { useProgress } from "../../contexts/ProgressContext";
 import { FlexWrapper } from "../shared/FlexWrapper";
 import { Button, IconButton } from "../shared/Button";
 import { LobbyArrow } from "../shared/icons/LobbyArrow";
@@ -109,9 +109,9 @@ const RulesButton = styled(Button)`
 
 export const Lobby = () => {
     const ratio = useSizeRatio();
-    const { passedWeeks, user, setModal, setUserInfo} = useProgress();
+    const { passedWeeks, user, setModal, currentWeek} = useProgress();
     const lastWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
-    const week = lastWeek > CURRENT_WEEK ? CURRENT_WEEK : lastWeek;
+    const week = lastWeek > currentWeek ? currentWeek : lastWeek;
     const [shown, setShown] = useState(week - 1);
     const { registerWeek, isVip, weekTickets } = user;
 
@@ -121,7 +121,7 @@ export const Lobby = () => {
         </NextSliderButton>
     );
 
-    const PrevButton =  (
+    const PrevButton = (
         <LeftSliderButton $ratio={ratio} icon={{width: 40, height: 40}} $auto={shown === 0}>
             {shown === 0 ? null : <LobbyArrow />}
         </LeftSliderButton>
@@ -129,24 +129,24 @@ export const Lobby = () => {
 
     const handleClick = (id) => {
         if (id > week) return;
-        setModal({visible: true, type: 'week', week: id, onNext: id === 1 ? () => setModal({visible: true, type: 'tipsRules'}) : undefined});
+        setModal({visible: true, type: 'week', week: id, onNext: id === 1 ? () => setModal({visible: true, type: 'tipsRules', week: 1}) : undefined});
     };
 
     useLayoutEffect(() => {
-        if (isVip && registerWeek !== CURRENT_WEEK && !weekTickets.includes(CURRENT_WEEK)) {
+        if (isVip && registerWeek !== currentWeek && !weekTickets.includes(currentWeek)) {
             setModal({visible: true, type: 'newWeek'});
         }
-    }, []);
+    }, [isVip, registerWeek, weekTickets, setModal, currentWeek]);
     
     return (
         <Wrapper $ratio={ratio}>
             <Header $ratio={ratio}/>
             <TgButton $ratio={ratio} onClick={() => setModal({visible: true, type: 'tg'})}>
                 <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1478 19.81C15.3951 17.5238 18.8942 16.0166 20.645 15.2884C25.6438 13.2092 26.6825 12.8481 27.3595 12.8361C27.5084 12.8335 27.8413 12.8704 28.057 13.0454C28.2391 13.1932 28.2892 13.3928 28.3132 13.5329C28.3371 13.673 28.367 13.9921 28.3433 14.2415C28.0724 17.0877 26.9003 23.9947 26.304 27.1825C26.0516 28.5314 25.5548 28.9837 25.0738 29.028C24.0285 29.1242 23.2348 28.3372 22.2224 27.6735C20.6381 26.635 19.7431 25.9886 18.2054 24.9752C16.4282 23.8041 17.5803 23.1604 18.5931 22.1085C18.8581 21.8332 23.4637 17.644 23.5528 17.264C23.564 17.2165 23.5743 17.0393 23.4691 16.9458C23.3638 16.8522 23.2085 16.8842 23.0964 16.9097C22.9375 16.9457 20.4067 18.6185 15.5039 21.928C14.7855 22.4213 14.1349 22.6617 13.5519 22.6491C12.9092 22.6352 11.6729 22.2857 10.7538 21.9869C9.62659 21.6205 8.73068 21.4268 8.80869 20.8045C8.84933 20.4803 9.29569 20.1488 10.1478 19.81Z" fill="white"/>
-                    <rect x="3" y="3" width="34" height="34" rx="6.6" stroke="white" stroke-width="2"/>
-                    <rect x="2" y="2" width="36" height="36" rx="7.6" fill="white" fill-opacity="0.1"/>
-                    <rect x="1" y="1" width="38" height="38" rx="8.6" stroke="white" stroke-opacity="0.2" stroke-width="2"/>
+                    <path fillRule="evenodd" clipRule="evenodd" d="M10.1478 19.81C15.3951 17.5238 18.8942 16.0166 20.645 15.2884C25.6438 13.2092 26.6825 12.8481 27.3595 12.8361C27.5084 12.8335 27.8413 12.8704 28.057 13.0454C28.2391 13.1932 28.2892 13.3928 28.3132 13.5329C28.3371 13.673 28.367 13.9921 28.3433 14.2415C28.0724 17.0877 26.9003 23.9947 26.304 27.1825C26.0516 28.5314 25.5548 28.9837 25.0738 29.028C24.0285 29.1242 23.2348 28.3372 22.2224 27.6735C20.6381 26.635 19.7431 25.9886 18.2054 24.9752C16.4282 23.8041 17.5803 23.1604 18.5931 22.1085C18.8581 21.8332 23.4637 17.644 23.5528 17.264C23.564 17.2165 23.5743 17.0393 23.4691 16.9458C23.3638 16.8522 23.2085 16.8842 23.0964 16.9097C22.9375 16.9457 20.4067 18.6185 15.5039 21.928C14.7855 22.4213 14.1349 22.6617 13.5519 22.6491C12.9092 22.6352 11.6729 22.2857 10.7538 21.9869C9.62659 21.6205 8.73068 21.4268 8.80869 20.8045C8.84933 20.4803 9.29569 20.1488 10.1478 19.81Z" fill="white"/>
+                    <rect x="3" y="3" width="34" height="34" rx="6.6" stroke="white" strokeWidth="2"/>
+                    <rect x="2" y="2" width="36" height="36" rx="7.6" fill="white" fillOpacity="0.1"/>
+                    <rect x="1" y="1" width="38" height="38" rx="8.6" stroke="white" strokeOpacity="0.2" strokeWidth="2"/>
                 </svg>
             </TgButton>
             <Slider
@@ -162,7 +162,7 @@ export const Lobby = () => {
                 beforeChange={(_, newInd) => setShown(newInd)}
             >
                 {weeks.map(({id, date}) => (
-                    <DoorBlock>
+                    <DoorBlock key={id}>
                         <CenterWrapper>
                             {id <= week ? (
                                 <OpenDoor $ratio={ratio}>
@@ -174,7 +174,7 @@ export const Lobby = () => {
                             <ButtonBlock $ratio={ratio} onClick={() => handleClick(id)}>
                                 {id <= week ? (<Button>Шифр №{id}</Button>) : (
                                     <Button>
-                                        {id > CURRENT_WEEK ? `Откроется ${date}` : 'Реши предыдущий шифр'}
+                                        {id > currentWeek ? `Откроется ${date}` : 'Реши предыдущий шифр'}
                                     </Button>
                                 )}
                             </ButtonBlock>

@@ -4,7 +4,6 @@ import { Block } from "../Block";
 import { Modal } from "./Modal";
 import { Button } from "../Button";
 import { useEffect, useState } from "react";
-import { getUserInfo } from "../../../utils/getUserInfo";
 
 const ButtonStyled = styled(Button)`
     margin: var(--spacing_x5) 0 0;
@@ -21,13 +20,13 @@ const Close = styled(Button)`
 `;
 
 export const TgModal = () => {
-    const { user, setVipPoints, modal, setUserInfo, setModal } = useProgress();
+    const { user, modal, setModal, getUserInfo } = useProgress();
 
     const [checkTg, setCheckTg] = useState(false);
 
     const handleClick = () => {
         if (checkTg) return;
-        window.open('', '_blank');
+        window.open('https://t.me/sbercryptography_bot', '_blank');
         setModal({visible: false});
     }
 
@@ -36,13 +35,7 @@ export const TgModal = () => {
             if (checkTg) return;
             setCheckTg(true);
 
-            getUserInfo(user.email).then((res) => {
-                if (!res || !res.userInfo) return;
-                setUserInfo({isTgConnected: res?.userInfo?.isTgConnected});
-                if (user.isVip) {
-                    setVipPoints(prev => res?.vipPoints ?? prev);
-                }
-            }).finally(() => {
+            getUserInfo(user.email, true).finally(() => {
                 setCheckTg(false);
             });
         }

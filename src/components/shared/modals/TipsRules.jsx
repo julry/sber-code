@@ -28,7 +28,7 @@ const BlockStyled = styled(Block)`
 
 export const TipsRulesModal = () => {
     const ratio = useSizeRatio();
-    const {setModal} = useProgress();
+    const {setModal, user, modal} = useProgress();
 
     const handleClick = () => {
         setModal({visible: false, type: undefined})
@@ -39,7 +39,7 @@ export const TipsRulesModal = () => {
             <ButtonWrapper $ratio={ratio}>
                 <TipsButtonStyled $ratio={ratio}>
                     <Bulb />
-                    <p>3/3</p>
+                    <p>{3 - user.weekTips[modal.week] > 0 ? 3 - user.weekTips[modal.week] : 0}/3</p>
                 </TipsButtonStyled>
             </ButtonWrapper>
             <BlockStyled>

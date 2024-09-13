@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
@@ -7,7 +6,6 @@ import { FlexWrapper } from "../shared/FlexWrapper";
 import start from '../../assets/images/start2.png';
 import { Rules2Text } from "../shared/texts/Rules2Text";
 import { SCREENS } from "../../constants/screens";
-import { updateUser } from "../../utils/updateUser";
 import { BackButton } from "../shared/BackButton";
 
 const Wrapper = styled(FlexWrapper)`
@@ -60,14 +58,14 @@ const BackStyled = styled(BackButton)`
 
 export const Start2 = () => {
     const ratio = useSizeRatio();
-    const {next, user, setUserInfo} = useProgress();
+    const {next, user, setUserInfo, updateUser} = useProgress();
 
     const handleNextPage = () => {
         const data = {
             seenInfo: true,
         };
         setUserInfo({seenInfo: true});
-        updateUser(user.recordId, data);
+        updateUser(data);
         next(SCREENS.LOBBY);
     }
 

@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { CURRENT_WEEK, useProgress } from "../../../contexts/ProgressContext";
+import { useProgress } from "../../../contexts/ProgressContext";
 import { useSizeRatio } from "../../../hooks/useSizeRatio";
-import { updateUser } from "../../../utils/updateUser";
 import { Block } from "../Block";
 import { Button } from "../Button";
 import { Ticket } from "../icons/Ticket";
@@ -34,21 +33,18 @@ const TicketWrapper = styled.div`
 
 export const NewWeekModal = () => {
     const ratio = useSizeRatio();
-    const {user, setModal, setVipPoints, setUserInfo} = useProgress();
+    const {user, vipPoints, setModal, setVipPoints, setUserInfo, updateUser, currentWeek} = useProgress();
 
     const handleClose = () => {
         const data = {
-            weekTickets: [...user.weekTickets, CURRENT_WEEK].join(',')
+            weekTickets: [...user.weekTickets, currentWeek].join(','),
+            targetPoints: vipPoints + 1
         }
 
-        setVipPoints(prev => {
-            data.targetPoints = prev + 1;
+        setVipPoints(prev => prev + 1);
 
-            return prev + 1;
-        });
-
-        setUserInfo({weekTickets: [...user.weekTickets, CURRENT_WEEK]});
-        updateUser(user.recordId, data);
+        setUserInfo({weekTickets: [...user.weekTickets, currentWeek]});
+        updateUser(data);
         setModal({visible: false})
     };
     

@@ -60,12 +60,12 @@ export const Input = ({value, onChange, type, postfix, readOnly, placeholder, ch
             {postfix && (<Postfix>{postfix}</Postfix>)}
             {isCorrect && (<Postfix>
                 <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M16.25 5L7.65625 15L3.75 10.4545" stroke="#14EAB0" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16.25 5L7.65625 15L3.75 10.4545" stroke="#14EAB0" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </Postfix>)}
             {isCorrect === false && (<Postfix>
                 <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.47089 5.47088L14.5291 14.5291M14.5291 5.47088L5.47089 14.5291" stroke="#DD3838" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5.47089 5.47088L14.5291 14.5291M14.5291 5.47088L5.47089 14.5291" stroke="#DD3838" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </Postfix>)}
         </Container>
