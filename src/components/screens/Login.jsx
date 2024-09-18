@@ -12,6 +12,7 @@ import { Input } from "../shared/Input";
 import { LoginText } from "../shared/texts/LoginText";
 import { BackButton } from "../shared/BackButton";
 import { emailRegExp } from "../../constants/regexp";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -92,7 +93,7 @@ export const Login = () => {
     const [isIncorrectEmail, setIsIncorrectEmail] = useState(false);
     const [email, setEmail] = useState('');
     const [isSending, setIsSending] = useState(false);
-    const { next, getUserInfo } = useProgress();
+    const { next, getUserInfo, currentWeek } = useProgress();
     const ratio = useSizeRatio();
 
     const handleNext = async () => {
@@ -112,7 +113,11 @@ export const Login = () => {
         }
 
         const { userInfo } = info;
-        
+
+        if (currentWeek > 1 && userInfo.seenInfo) {
+            reachMetrikaGoal(`${userInfo.isVip ? '' : 'non'}target_lobby${currentWeek}`);    
+        }
+
         next(userInfo.seenInfo ? SCREENS.LOBBY : SCREENS.START);
     };
 

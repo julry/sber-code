@@ -7,6 +7,7 @@ import start from '../../assets/images/start2.png';
 import { Rules2Text } from "../shared/texts/Rules2Text";
 import { SCREENS } from "../../constants/screens";
 import { BackButton } from "../shared/BackButton";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled(FlexWrapper)`
     padding: ${({$ratio}) => $ratio * 43}px ${({$ratio}) => $ratio * 23}px ${({$ratio}) => $ratio * 40}px;
@@ -58,12 +59,14 @@ const BackStyled = styled(BackButton)`
 
 export const Start2 = () => {
     const ratio = useSizeRatio();
-    const {next, user, setUserInfo, updateUser} = useProgress();
+    const {next, user, setUserInfo, updateUser, currentWeek} = useProgress();
 
     const handleNextPage = () => {
         const data = {
             seenInfo: true,
         };
+        
+        reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_lobby${currentWeek > 1 ? currentWeek : ''}`);
         setUserInfo({seenInfo: true});
         updateUser(data);
         next(SCREENS.LOBBY);

@@ -3,6 +3,7 @@ import game from '../../assets/images/game.png';
 import { TIPS_TO_POINTS } from "../../constants/tipsToPoints";
 import { useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 import { BackButton } from "./BackButton";
 import { Button, IconButton } from "./Button";
 import { FlexWrapper } from "./FlexWrapper";
@@ -66,8 +67,7 @@ export const Game = ({ onAnswer, week, buttonDisabled, children }) => {
         const data = {
             passedWeeks: (passedWeeks.includes(week) ? passedWeeks : [...passedWeeks, week]).join(',')
         };
-
-        
+        reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_week${week}done`);    
         if (user.isVip) {
             if (week === currentWeek) {
                 data[`week${currentWeek}Points`] = weekPoints + coins;
@@ -85,6 +85,7 @@ export const Game = ({ onAnswer, week, buttonDisabled, children }) => {
             const weeks = prev.includes(week) ? prev : [...prev, week];
             return weeks;
         });
+
         updateUser(data);
     }
 

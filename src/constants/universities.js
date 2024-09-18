@@ -1,9 +1,5 @@
 export const universities = [
     {
-        id: 'hsenn',
-        name: 'ВШЭ НН — НИУ ВШЭ Нижний Новгород',
-    },
-    {
         id: 'mgtu',
         name: 'МГТУ',
     },
@@ -14,10 +10,6 @@ export const universities = [
     {
         id: 'misis',
         name: 'МИСиС'
-    },
-    {
-        id: 'mifi',
-        name: 'МИФИ'
     },
     {
         id: 'mfti',
@@ -42,20 +34,20 @@ export const universities = [
 ]
 
 export const faculties = [
-   {
-        id: 'fac-hsenn',
-        university: 'hsenn',
-        name: 'Факультет информатики, математики и компьютерных наук',
-    },
     {
         id: 'fac-mgtu',
         university: 'mgtu',
         name: 'Информатика, искусственный интеллект и системы управления (ИУ)',
     },
     {
-        id: 'fac-mgu',
-        university: 'mgu',
-        name: 'Факультет вычислительной математики и кибернетики',
+        id: 'fac-mgtu2',
+        university: 'mgtu',
+        name: 'Инженерный бизнес и менеджмент',
+    },
+    {
+        id: 'fac-mgtu3',
+        university: 'mgtu',
+        name: 'Фундаментальные науки',
     },
     {
         id: 'fac-mgu1',
@@ -68,11 +60,6 @@ export const faculties = [
         name: 'Институт экономики и управления'
     },
     {
-        id: 'fac-mifi',
-        university: 'mifi',
-        name: 'Институт интеллектуальных кибернетических систем (ИИКС)'
-    },
-    {
         id: 'fac-mfti',
         university: 'mfti',
         name: 'Физтех-школа прикладной математики и информатики'
@@ -83,6 +70,11 @@ export const faculties = [
         name: 'Факультет информационных технологий',
     },
     {
+        id: 'fac-ngu-2',
+        university: 'ngu',
+        name: 'Механико-математический факультет',
+    },
+    {
         id: 'fac-hse',
         university: 'hse',
         name: 'Факультет компьютерных наук'
@@ -91,6 +83,11 @@ export const faculties = [
         id: 'fac-spbgu',
         university: 'spbgu',
         name: 'Факультет прикладной математики — процессов управления'
+    },
+    {
+        id: 'fac-spbgu-1',
+        university: 'spbgu',
+        name: 'Экономический факультет'
     },
     {
         id: 'fac-other',

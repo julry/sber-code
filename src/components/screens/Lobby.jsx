@@ -13,6 +13,7 @@ import { useState } from "react";
 import { DoneMark } from "../shared/icons";
 import { weeks } from "../../constants/weeks";
 import { useLayoutEffect } from "react";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -127,9 +128,16 @@ export const Lobby = () => {
         </LeftSliderButton>
     )
 
+    const handleNextDoor = (id) => {
+        if (id === 1) setModal({visible: true, type: 'tipsRules', week: 1});
+
+        reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_code${id}`);
+    }
+
     const handleClick = (id) => {
         if (id > week) return;
-        setModal({visible: true, type: 'week', week: id, onNext: id === 1 ? () => setModal({visible: true, type: 'tipsRules', week: 1}) : undefined});
+
+        setModal({visible: true, type: 'week', week: id, onNext: () => handleNextDoor(id)});
     };
 
     useLayoutEffect(() => {

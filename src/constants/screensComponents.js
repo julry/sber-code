@@ -10,6 +10,7 @@ import { VipStart } from "../components/screens/VipStart";
 import { Start2 } from "../components/screens/Start2";
 import { Game1 } from "../components/screens/Game1";
 import { Game2 } from "../components/screens/Game2";
+import { Game3 } from "../components/screens/Game3";
 
 import door from '../assets/images/door.png';
 import doorLocked from '../assets/images/doorLocked.png';
@@ -35,6 +36,7 @@ export const screens = {
     [SCREENS.LOBBY]: Lobby,
     [SCREENS.GAME1]: Game1,
     [SCREENS.GAME2]: Game2,
+    [SCREENS.GAME3]: Game3,
 };
 
 export const preloadImages = [game,door, doorLocked, intro, lobby, start1, start2, tip, tip21, tip22, tip23, reg];

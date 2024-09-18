@@ -46,7 +46,8 @@ const API_LINK = 'https://ft-admin-api.sjuksin.ru/';
 
 export function ProgressProvider(props) {
     const {children} = props
-    const [currentScreen, setCurrentScreen] = useState(getUrlParam('screen') || INITIAL_STATE.screen);
+    // const [currentScreen, setCurrentScreen] = useState(getUrlParam('screen') || INITIAL_STATE.screen);
+    const [currentScreen, setCurrentScreen] = useState(getUrlParam('screen'));
     // points za igru, сюда добавляем набранные общие звезды 
     const [points, setPoints] = useState(INITIAL_STATE.points);
     // points za недели, сюда добавляем набранные красные звезды для випов

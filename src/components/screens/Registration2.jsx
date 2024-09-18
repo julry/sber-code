@@ -208,7 +208,7 @@ export const Registration2 = () => {
             <ButtonStyled 
                 color="green" 
                 onClick={handleClick} 
-                disabled={!name || !email || !surname || !isAgreed || isSending}
+                disabled={!name || !email || !surname || !isAgreed || isSending || !email.match(emailRegExp) || isAlreadyHas}
             >
                 Отправить
             </ButtonStyled>

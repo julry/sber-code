@@ -93,5 +93,39 @@ export const tips = {
             num: 3,
             Component: () => <ImageStyled src={tip23} alt="" />
         }
+    ],
+    3: [
+        {
+            id: '3_1',
+            num: 1,
+            Component: (props) => <TextMd {...props}>Видишь эти цифры? Мы тоже:) Может, они что‑то значат?‥</TextMd>
+        },
+        {
+            id: '3_2',
+            num: 2,
+            Component: (props) => <TextMd {...props}>Нет, это не те дроби, которым тебя учили в школе:)</TextMd>
+        },
+        {
+            id: '3_3',
+            num: 3,
+            Component: (props) => <TextMd {...props}>Буква соответствует цифре по вертикали и горизонтали</TextMd>
+        }
+    ],
+    4: [
+        {
+            id: '4_1',
+            num: 1,
+            Component: (props) => <TextMd {...props}>У каждого символа есть смысл</TextMd>
+        },
+        {
+            id: '4_2',
+            num: 2,
+            Component: (props) => <TextMd {...props}>Давай сыграем в крестики-нолики — распределим всё по ячейкам. Пустые схемы здесь не просто так.</TextMd>
+        },
+        {
+            id: '4_3',
+            num: 3,
+            Component: (props) => <TextMd {...props}>Один символ — одна буква алфавита. Попробуй составить послание!</TextMd>
+        }
     ]
 }

@@ -51,7 +51,7 @@ export const Registration1 = () => {
     }
 
     const handleNext = () => {
-        setUserInfo({university: `${univ.name}${!fac && fac !== 'Другое' ? ' — ' + fac : ''}`, isVip: !!fac && fac !== 'Другое'});
+        setUserInfo({university: `${univ.name}${!!fac && fac !== 'Другое' ? ' — ' + fac : ''}`, isVip: !!fac && fac !== 'Другое'});
         next();
     }
 
@@ -64,11 +64,11 @@ export const Registration1 = () => {
                     Укажи свой вуз и факультет: обрати внимание, что для получения призов тебе нужно будет взять с собой свой студенческий билет.
                 </Text>
                 <Picture/>
-                <Select options={universities} placeholder="Вуз" onChoose={handlePicUniversity} zIndex={2}/>
+                <Select options={universities} placeholder="Вуз" onChoose={handlePicUniversity} zIndex={10}/>
                 {univ?.id && univ.id !== 'other' && (
                     <SelectStyled 
                         placeholder="Факультет"
-                        zIndex={1}
+                        zIndex={9}
                         options={faculties.filter(({university}) => university === univ.id || university === 'all')}
                         onChoose={(_, name) => setFac(name)}
                     />

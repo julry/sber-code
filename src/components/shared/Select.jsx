@@ -22,12 +22,12 @@ const Postfix = styled.div`
     background-size: cover;
     transition: transform 0.3s;
     transform: translateY(-50%) ${({$isOpen}) => $isOpen ? 'rotate(90deg)' : ''};
-    z-index: 5;
+    z-index: 12;
 `;
 
 const InputStyled = styled(Input)`
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
-    z-index: 3;
+    z-index: 11;
     cursor: pointer;
 
     & input {
@@ -37,7 +37,7 @@ const InputStyled = styled(Input)`
 
 const List = styled(motion.div)`
     position: absolute;
-    z-index: 2;
+    z-index: 10;
     top: calc(100% - ${({$ratio}) => $ratio * 10}px);
     left: 0;
     right: 0;
