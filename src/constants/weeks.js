@@ -46,6 +46,10 @@ export const weeks = [
         letters: ['О,',' В,',' Ы,',' Й,', ' И'],
         postText: 'Шифры всё сложнее и сложнее, но тебя это не останавливает! Получай заслуженные призы.'
     },
+    {
+        id: '4_1',
+        isFinal: true,
+    }
 ];
 
 export const WEEK_TO_GAME = {

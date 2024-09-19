@@ -29,8 +29,9 @@ const Text = styled.p`
 
 
 export const CoinsRulesModal = () => {
-    const { user, points, vipPoints, weekPoints, setModal, } = useProgress();
+    const { user, points, vipPoints, weekPoints, setModal, passedWeeks } = useProgress();
     const ratio = useSizeRatio();
+    const isLastWeek = ((passedWeeks[passedWeeks.length - 1] ?? 0) + 1) >= 4;
 
     const handleTicketClick = () => {
         setModal({visible: true, type: 'tickets', onClose: () => setModal({visible: true, type: 'points'})});
@@ -49,7 +50,7 @@ export const CoinsRulesModal = () => {
                         <>
                             <Wrapper $ratio={ratio} onClick={handleCoinsClick}>
                                 <Coin />
-                                <Text>{weekPoints} / 100</Text>
+                                <Text>{weekPoints} / {isLastWeek ? 200 : 100}</Text>
                             </Wrapper>
                             <Wrapper $ratio={ratio} onClick={handleTicketClick}>
                                 <Ticket />

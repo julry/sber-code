@@ -14,6 +14,7 @@ import { DoneMark } from "../shared/icons";
 import { weeks } from "../../constants/weeks";
 import { useLayoutEffect } from "react";
 import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
+import { SCREENS } from "../../constants/screens";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -110,15 +111,16 @@ const RulesButton = styled(Button)`
 
 export const Lobby = () => {
     const ratio = useSizeRatio();
-    const { passedWeeks, user, setModal, currentWeek} = useProgress();
+    const { passedWeeks, user, setModal, currentWeek, next } = useProgress();
     const lastWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const week = lastWeek > currentWeek ? currentWeek : lastWeek;
     const [shown, setShown] = useState(week - 1);
     const { registerWeek, isVip, weekTickets } = user;
 
+    const notShownNext = !passedWeeks.includes(4) ? shown === 3 : shown === 4;
     const NextButton = (
-        <NextSliderButton $ratio={ratio} icon={{width: 40, height: 40}} $auto={shown === 3}>
-            {shown === 3 ? null : <LobbyArrow />}
+        <NextSliderButton $ratio={ratio} icon={{width: 40, height: 40}} $auto={notShownNext} disabled={notShownNext}>
+            {notShownNext ? null : <LobbyArrow />}
         </NextSliderButton>
     );
 
@@ -134,9 +136,14 @@ export const Lobby = () => {
         reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_code${id}`);
     }
 
-    const handleClick = (id) => {
-        if (id > week) return;
+    const handleClick = (id, isFinal) => {
+        if (isFinal) {
+            next(SCREENS.FINAL_INTRO);
+            return;
+        }
 
+        if (id > week) return;
+        
         setModal({visible: true, type: 'week', week: id, onNext: () => handleNextDoor(id)});
     };
 
@@ -146,6 +153,15 @@ export const Lobby = () => {
         }
     }, [isVip, registerWeek, weekTickets, setModal, currentWeek]);
     
+    const getButtonText = (id, date, isFinal) => {
+        if (isFinal) return 'Финальный шифр';
+
+        if (id <= week) return `Шифр №${id}`;
+        if (id > currentWeek) return `Откроется ${date}`;
+
+        return 'Реши предыдущий шифр'
+    }
+
     return (
         <Wrapper $ratio={ratio}>
             <Header $ratio={ratio}/>
@@ -169,22 +185,20 @@ export const Lobby = () => {
                 prevArrow={PrevButton}
                 beforeChange={(_, newInd) => setShown(newInd)}
             >
-                {weeks.map(({id, date}) => (
+                {weeks.map(({id, date, isFinal}) => (
                     <DoorBlock key={id}>
                         <CenterWrapper>
-                            {id <= week ? (
+                            {id <= week || (isFinal && passedWeeks.includes(4)) ? (
                                 <OpenDoor $ratio={ratio}>
                                     {passedWeeks.includes(id) && (
                                         <DoneMarkStyled $ratio={ratio} onClick={() => handleClick(id)}/> 
                                     )}
                                 </OpenDoor>
                             ) : <ClosedDoor $ratio={ratio}/>}
-                            <ButtonBlock $ratio={ratio} onClick={() => handleClick(id)}>
-                                {id <= week ? (<Button>Шифр №{id}</Button>) : (
-                                    <Button>
-                                        {id > currentWeek ? `Откроется ${date}` : 'Реши предыдущий шифр'}
-                                    </Button>
-                                )}
+                            <ButtonBlock $ratio={ratio} onClick={() => handleClick(id, isFinal)}>
+                                <Button>
+                                    {getButtonText(id, date, isFinal)}
+                                </Button>
                             </ButtonBlock>
                         </CenterWrapper>
                     </DoorBlock>

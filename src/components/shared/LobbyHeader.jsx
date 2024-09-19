@@ -38,7 +38,7 @@ const Progress = styled.div`
     top: 2px;
     bottom: 2px;
     left: 2px;
-    width: calc((100% / ${({$amount}) => $amount}) * ${({$part}) => $part});
+    width: calc((100% / ${({$amount}) => $amount}) * ${({$part}) => $part} - 4px);
     border-radius: var(--border-radius-xl);
     overflow: hidden;
     z-index: 3;
@@ -54,7 +54,7 @@ export const LobbyHeader = (props) => {
     return (
         <Wrapper {...props}>
             <ProgressWrapper $ratio={ratio}>
-                <Progress $amount={4} $part={lastWeek}/>
+                <Progress $amount={4} $part={Math.min(lastWeek, 4)}/>
             </ProgressWrapper>
             <Block>
                 <IconButtonStyled onClick={() => setModal({type: 'points', visible: true})}>

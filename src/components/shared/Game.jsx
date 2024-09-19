@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import game from '../../assets/images/game.png';
+import longLvlBg from '../../assets/images/longLvlBg.png';
 import { TIPS_TO_POINTS } from "../../constants/tipsToPoints";
 import { useProgress } from "../../contexts/ProgressContext";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
@@ -7,6 +8,7 @@ import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 import { BackButton } from "./BackButton";
 import { Button, IconButton } from "./Button";
 import { FlexWrapper } from "./FlexWrapper";
+import { GameHeader } from "./GameHeader";
 import { Info } from "./icons";
 import { Bulb } from "./icons/Bulb";
 import { TipButton } from "./TipButton";
@@ -15,7 +17,7 @@ const Wrapper = styled(FlexWrapper)`
     width: 100%;
     position: relative;
     height: 100%;
-    background: url(${game}) center center no-repeat;
+    background: url(${({$week}) => [1,2].includes($week) ? game : longLvlBg}) center center no-repeat;
     background-size: cover;
     padding: ${({$ratio}) => $ratio * 62}px ${({$ratio}) => $ratio * 23}px ${({$ratio}) => $ratio * 23}px;
 `;
@@ -43,19 +45,14 @@ const FlexBlock = styled.div`
 export const Game = ({ onAnswer, week, buttonDisabled, children }) => {
     const { 
         user, setModal, currentWeek, passedWeeks, setPassedWeeks,
-        weekPoints, points, vipPoints, 
-        setWeekPoints, setPoints, setVipPoints, updateUser 
+        weekPoints, points, vipPoints,
+        setWeekPoints, setPoints, setVipPoints, updateUser
     } = useProgress();
     const ratio = useSizeRatio();
 
     const handleClickTip = () => {
         setModal({visible: true, type: 'tips', week});
     }
-
-    const handleClickInfo = () => {
-        setModal({visible: true, type: 'tipsInfo'});
-    }
-
 
     const handleAnswer = () => {
         const isCorrect = onAnswer();
@@ -90,19 +87,8 @@ export const Game = ({ onAnswer, week, buttonDisabled, children }) => {
     }
 
     return (
-        <Wrapper $ratio={ratio}>
-            <Header>
-                <BackButton onClick={() => setModal({visible: true, type: 'exit'})}/>
-                <FlexBlock $ratio={ratio}>
-                    <TipButton $ratio={ratio} onClick={handleClickTip}>
-                        <Bulb />
-                        <p>{3 - user.weekTips[week] >= 0 ? 3 - user.weekTips[week] : 0}/3</p>
-                    </TipButton>
-                    <IconButton onClick={handleClickInfo}>
-                        <Info />
-                    </IconButton>
-                </FlexBlock>
-            </Header>
+        <Wrapper $ratio={ratio} $week={week}>
+            <GameHeader onClickTip={handleClickTip} week={week}/>
             {children}
             <Button disabled={buttonDisabled} onClick={handleAnswer}>Ввести</Button>
         </Wrapper>

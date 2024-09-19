@@ -68,7 +68,8 @@ const PointsWrapper = styled(Wrapper)`
 
 export const ProfileModal = () => {
     const ratio = useSizeRatio();
-    const { user, weekPoints, vipPoints, points, setModal } = useProgress();
+    const { user, weekPoints, vipPoints, points, setModal, passedWeeks } = useProgress();
+    const isLastWeek = ((passedWeeks[passedWeeks.length - 1] ?? 0) + 1) >= 4;
 
     return (
         <Modal>
@@ -96,7 +97,7 @@ export const ProfileModal = () => {
                             <>
                                 <PointsWrapper $ratio={ratio}>
                                     <Coin />
-                                    <Text>{weekPoints} / 100</Text>
+                                    <Text>{weekPoints} / {isLastWeek ? 200 : 100}</Text>
                                 </PointsWrapper>
                                 <PointsWrapper $ratio={ratio}>
                                     <Ticket />

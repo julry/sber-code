@@ -13,6 +13,7 @@ const INITIAL_USER = {
     isVip: true,
     seenInfo: false,
     isTgConnected: false,
+    // weekTickets: [1,2,3],
     weekTickets: [],
     weekTips: {1: 0, 2: 0, 3: 0, 4: 0},
     isJustEntered: false,
@@ -37,6 +38,7 @@ const INITIAL_STATE = {
     vipPoints: 0,
     weekPoints: 0,
     user: INITIAL_USER,
+    // passedWeeks: [1,2,3, 4],
     passedWeeks: [],
 }
 
@@ -46,8 +48,8 @@ const API_LINK = 'https://ft-admin-api.sjuksin.ru/';
 
 export function ProgressProvider(props) {
     const {children} = props
-    // const [currentScreen, setCurrentScreen] = useState(getUrlParam('screen') || INITIAL_STATE.screen);
-    const [currentScreen, setCurrentScreen] = useState(INITIAL_STATE.screen);
+    const [currentScreen, setCurrentScreen] = useState(getUrlParam('screen') || INITIAL_STATE.screen);
+    // const [currentScreen, setCurrentScreen] = useState(INITIAL_STATE.screen);
     // points za igru, сюда добавляем набранные общие звезды 
     const [points, setPoints] = useState(INITIAL_STATE.points);
     // points za недели, сюда добавляем набранные красные звезды для випов
