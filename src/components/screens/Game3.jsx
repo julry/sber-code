@@ -13,7 +13,7 @@ const Text = styled.p`
 `;
 
 const Content = styled.div`
-    padding: calc(var(--spacing_x5) * 1.8) 0;
+    padding: calc(var(--spacing_x5) * 1.8) 0 var(--spacing_x5);
 `;
 
 const InputStyled = styled(GameInput)`
@@ -24,7 +24,6 @@ const WordWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: ${({$ratio}) => $ratio * 34}px;
     margin-bottom: ${({$ratio}) => $ratio * 20}px;
 `;
 
@@ -96,9 +95,6 @@ export const Game3 = () => {
             onAnswer={handleCheck}
         >
             <Content>
-                <Text $ratio={ratio}>
-                    Вводи по одной{'\n'}расшифрованной букве.
-                </Text>
                 <WordWrapper $ratio={ratio}>
                     <div>
                         <InputStyled $ratio={ratio} value={firstWord[0]} onChange={(e) => handleChange(e, 0, true)}/>

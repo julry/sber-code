@@ -91,7 +91,7 @@ export const PostLevelModal = () => {
         setModal({visible: false, week: modal.week});
         if (user.isVip && passedWeeks.length < currentWeek) {
             setTimeout(() => setModal({visible: true, week: modal.week, type: 'refresh'}), 0);
-        } else if (passedWeeks.length === currentWeek) {
+        } else if (passedWeeks.length === currentWeek && currentWeek !== 4) {
             setTimeout(() => setModal({visible: true, type: 'wait'}),0);
         }
     }

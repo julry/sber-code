@@ -114,10 +114,12 @@ export const Lobby = () => {
     const { passedWeeks, user, setModal, currentWeek, next } = useProgress();
     const lastWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const week = lastWeek > currentWeek ? currentWeek : lastWeek;
-    const [shown, setShown] = useState(week - 1);
+    const isFinalOpened = passedWeeks.includes(4);
+    const [shown, setShown] = useState(isFinalOpened ? 4 : week - 1);
     const { registerWeek, isVip, weekTickets } = user;
 
-    const notShownNext = !passedWeeks.includes(4) ? shown === 3 : shown === 4;
+
+    const notShownNext = isFinalOpened ? shown === 4 : shown === 3;
     const NextButton = (
         <NextSliderButton $ratio={ratio} icon={{width: 40, height: 40}} $auto={notShownNext} disabled={notShownNext}>
             {notShownNext ? null : <LobbyArrow />}
@@ -177,7 +179,7 @@ export const Lobby = () => {
                 slidesToShow={1}
                 slidesToScroll={1}
                 adaptiveHeight={true}
-                initialSlide={week - 1}
+                initialSlide={isFinalOpened ? 4 : week - 1}
                 infinite={false}
                 speed={300}
                 draggable={false}
@@ -188,7 +190,7 @@ export const Lobby = () => {
                 {weeks.map(({id, date, isFinal}) => (
                     <DoorBlock key={id}>
                         <CenterWrapper>
-                            {id <= week || (isFinal && passedWeeks.includes(4)) ? (
+                            {id <= week || (isFinal && isFinalOpened) ? (
                                 <OpenDoor $ratio={ratio}>
                                     {passedWeeks.includes(id) && (
                                         <DoneMarkStyled $ratio={ratio} onClick={() => handleClick(id)}/> 
