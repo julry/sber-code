@@ -38,7 +38,7 @@ const INITIAL_STATE = {
     vipPoints: 0,
     weekPoints: 0,
     user: INITIAL_USER,
-    // passedWeeks: [1,2,3, 4],
+    // passedWeeks: [1, 2, 3, 4],
     passedWeeks: [],
 }
 
