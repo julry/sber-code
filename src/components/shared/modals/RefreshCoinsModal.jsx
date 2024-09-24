@@ -12,7 +12,7 @@ const Content = styled(Block)`
     text-align: left;
 `;
 
-export const RefreshCoinsModal = (props) => {
+export const RefreshCoinsModal = () => {
     const { setModal } = useProgress();
 
     return (

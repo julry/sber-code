@@ -15,6 +15,7 @@ import { weeks } from "../../constants/weeks";
 import { useLayoutEffect } from "react";
 import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 import { SCREENS } from "../../constants/screens";
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -111,13 +112,12 @@ const RulesButton = styled(Button)`
 
 export const Lobby = () => {
     const ratio = useSizeRatio();
-    const { passedWeeks, user, setModal, currentWeek, next } = useProgress();
+    const { passedWeeks, user, setModal, currentWeek, next, setUserInfo } = useProgress();
     const lastWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const week = lastWeek > currentWeek ? currentWeek : lastWeek;
     const isFinalOpened = passedWeeks.includes(4);
     const [shown, setShown] = useState(isFinalOpened ? 4 : week - 1);
     const { registerWeek, isVip, weekTickets } = user;
-
 
     const notShownNext = isFinalOpened ? shown === 4 : shown === 3;
     const NextButton = (
@@ -152,6 +152,9 @@ export const Lobby = () => {
     useLayoutEffect(() => {
         if (isVip && registerWeek !== currentWeek && !weekTickets.includes(currentWeek)) {
             setModal({visible: true, type: 'newWeek'});
+        } else if (isVip && !user.startRefresh && weekTickets.includes(currentWeek) && passedWeeks?.length > 0 && !passedWeeks.includes(currentWeek)) {
+            setUserInfo({startRefresh: true});
+            setModal({visible: true, type: 'refresh'});
         }
     }, [isVip, registerWeek, weekTickets, setModal, currentWeek]);
     

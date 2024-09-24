@@ -33,7 +33,7 @@ const TicketWrapper = styled.div`
 
 export const NewWeekModal = () => {
     const ratio = useSizeRatio();
-    const {user, vipPoints, setModal, setVipPoints, setUserInfo, updateUser, currentWeek} = useProgress();
+    const {user, vipPoints, setModal, setVipPoints, setUserInfo, updateUser, currentWeek, passedWeeks} = useProgress();
 
     const handleClose = () => {
         const data = {
@@ -45,7 +45,9 @@ export const NewWeekModal = () => {
 
         setUserInfo({weekTickets: [...user.weekTickets, currentWeek]});
         updateUser(data);
-        setModal({visible: false})
+        if (passedWeeks?.length > 0 && !passedWeeks.includes(currentWeek)) {
+            setModal({visible: true, type: 'refresh'})
+        }
     };
     
     return (

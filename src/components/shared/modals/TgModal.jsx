@@ -26,7 +26,7 @@ export const TgModal = () => {
 
     const handleClick = () => {
         if (checkTg) return;
-        window.open(`https://t.me/sbercryptography_bot?start=${user.email}`, '_blank');
+        window.open(`https://t.me/sbercryptography_bot?start=email_${btoa(user.email)}`, '_blank');
         setModal({visible: false});
     }
 
