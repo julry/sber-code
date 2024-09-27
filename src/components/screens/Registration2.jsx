@@ -163,6 +163,7 @@ export const Registration2 = () => {
         next(user.seenInfo ? SCREENS.LOBBY : SCREENS.START);
     }
 
+    const link = user.isVip ? 'https://sber-cryptography.fut.ru/agreement_ff.pdf' : 'https://sber-cryptography.fut.ru/agreement.pdf';
     return (
         <Wrapper>
             <Text $ratio={ratio}>
@@ -208,7 +209,7 @@ export const Registration2 = () => {
                 placeholder="ID"
             />
             <SmallText> 
-                Если позовёшь друга,{'\n'}сможешь получить {user.isVip ? '1 билетик' : '20 монеток'}
+                После регистрации ты тоже{'\n'}сможешь пригласить друзей в игру
             </SmallText>
             <RadioButtonLabel $ratio={ratio}>
                 <InputRadioButton
@@ -226,7 +227,8 @@ export const Registration2 = () => {
                     >
                     обработку персональных данных
                     </Link>{" "}
-                    {" "}и получение информационных сообщений, а также с правилами проведения акции.
+                    {" "}и получение информационных сообщений, а также с{"\u00A0"}
+                    <Link href={link} target="_blank">правилами проведения акции</Link>.
                 </span>
             </RadioButtonLabel>
             {isNetworkError  && (

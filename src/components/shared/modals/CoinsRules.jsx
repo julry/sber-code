@@ -54,7 +54,7 @@ export const CoinsRulesModal = () => {
                             </Wrapper>
                             <Wrapper $ratio={ratio} onClick={handleTicketClick}>
                                 <Ticket />
-                                <Text>{vipPoints} / 31</Text>
+                                <Text>{vipPoints} / 32</Text>
                             </Wrapper>
                         </>
                     ) : (
