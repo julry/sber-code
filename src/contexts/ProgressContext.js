@@ -100,14 +100,17 @@ export function ProgressProvider(props) {
 
     const updateUser = async (changed) => {
         const { 
-            isVip, recordId, weekTickets, id, name, email, registerWeek, weekTips,
+            isVip, recordId, weekTickets, id, name, email, registerWeek, weekTips, refId,
             university, isTgConnected, seenInfo, week1Points, week2Points, week3Points, week4Points,
         } = user;
+
+        if (!recordId) return;
 
         const data = {
             id,
             name,
             email,
+            refId,
             university,
             isTarget: isVip,
             isTgConnected: isTgConnected,
@@ -137,11 +140,12 @@ export function ProgressProvider(props) {
         }
     }
 
-    const registrateUser = async ({id, name, email}) => {
+    const registrateUser = async ({id, name, email, refId}) => {
         const data = {
             id,
             name,
             email,
+            refId,
             university: user.university,
             isTarget: user.isVip,
             points: 0,
@@ -170,6 +174,7 @@ export function ProgressProvider(props) {
             week2Points: 0,
             week3Points: 0,
             week4Points: 0,
+            refId,
         };
 
        try {
@@ -200,6 +205,7 @@ export function ProgressProvider(props) {
                 id: data.id,
                 name: data.name,
                 email,
+                refId: data.refId,
                 university: data.university,
                 fac: data.fac,
                 isVip: data.isTarget,

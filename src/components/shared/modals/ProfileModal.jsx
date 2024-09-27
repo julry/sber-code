@@ -101,13 +101,13 @@ export const ProfileModal = () => {
                                 </PointsWrapper>
                                 <PointsWrapper $ratio={ratio}>
                                     <Ticket />
-                                    <Text>{vipPoints} / 30</Text>
+                                    <Text>{vipPoints} / 31</Text>
                                 </PointsWrapper>
                             </>
                         ) : (
                                 <PointsWrapper $ratio={ratio}>
                                     <Coin />
-                                    <Text>{points} / 520</Text>
+                                    <Text>{points} / 540</Text>
                                 </PointsWrapper>
                         )}
                     </PointsWrapper>

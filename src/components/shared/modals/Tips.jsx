@@ -101,7 +101,6 @@ export const TipsModal = () => {
             sliderRef.current.slickGoTo(3);
         } else {
             updateUser({weekTips: Object.values({...user.weekTips, [week]: user.weekTips[week] + 1}).join(',')});
-            // updateUser(Object.values({...user.weekTips, [week]: user.weekTips[week] + 1}).join(','));
             setUserInfo({weekTips: {...user.weekTips, [week]: user.weekTips[week] + 1}});
         }
     }

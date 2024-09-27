@@ -70,7 +70,7 @@ export const Game2 = () => {
             });
 
             return true;
-        } else  setModal({visible: true, type: 'lose', week: 2, text: 'Ты был совсем близко, нужно всего лишь подумать над шифром ещё немного!'});
+        } else setModal({visible: true, type: 'lose', week: 2, text: 'Ты был совсем близко, нужно всего лишь подумать над шифром ещё немного!'});
     }
 
     return (

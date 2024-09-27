@@ -3,7 +3,7 @@ import {uid} from "uid";
 import { SCREENS } from "../../constants/screens";
 import { Button } from "../shared/Button";
 import { Input } from "../shared/Input";
-import reg from '../../assets/images/reg.png';
+import reg from '../../assets/images/reg2.png';
 import { useProgress } from "../../contexts/ProgressContext";
 import { useState } from "react";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
@@ -12,22 +12,23 @@ import { emailRegExp } from "../../constants/regexp";
 
 const Wrapper = styled(FlexWrapper)`
     padding: calc(2 * var(--spacing_x5)) var(--spacing_x4);
-`;
-
-const Picture = styled.div`
-    position: absolute;
-    inset: 0;
     background: url(${reg}) no-repeat center 100% / cover;
+
 `;
 
 const Text = styled.p`
-    margin-bottom: var(--spacing_x5);
+    margin-bottom: ${({$ratio}) => $ratio * 15}px;
     text-align: center;
-    width: ${({$ratio}) => $ratio * 274}px;
+    width: ${({$ratio}) => $ratio * 286}px;
 `;
 
 const InputStyled = styled(Input)`
     margin-top: var(--spacing_small);
+
+    & input {
+        padding-top: var(--spacing_x2);
+        padding-bottom: var(--spacing_x2);
+    }
 `;
 
 const ButtonStyled = styled(Button)`
@@ -50,42 +51,44 @@ const RadioIconStyled = styled.div`
 `;
 
 const RadioButtonLabel = styled.label`
-  display: flex;
-  align-items: flex-start;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: left;
-  margin-top: var(--spacing_x5);
-  width: ${({$ratio}) => $ratio * 274}px;
-  font-size: ${({$ratio}) => $ratio * 11}px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    margin-top: var(--spacing_x4);
+    width: ${({$ratio}) => $ratio * 274}px;
+    font-size: ${({$ratio}) => $ratio * 11}px;
 
-  & ${InputRadioButton}:checked + ${RadioIconStyled}{
-    background: #14EAB0;
-  }
+    & ${InputRadioButton}:checked + ${RadioIconStyled}{
+        background: #14EAB0;
+    }
 
-  & ${InputRadioButton}:checked + ${RadioIconStyled}::after {
-    content: '';
-    position: absolute;
-    top: ${({$ratio}) => $ratio * 9}px;
-    left: ${({$ratio}) => $ratio * 2}px;
-    width: ${({$ratio}) => $ratio * 6}px;
-    height: ${({$ratio}) => $ratio * 2}px;
-    transform: rotate(45deg);
-    background-color: white;
-    border-radius: ${({$ratio}) => $ratio * 5}px;
-  }
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::after {
+        content: '';
+        position: absolute;
+        top: ${({$ratio}) => $ratio * 9}px;
+        left: ${({$ratio}) => $ratio * 2}px;
+        width: ${({$ratio}) => $ratio * 6}px;
+        height: ${({$ratio}) => $ratio * 2}px;
+        transform: rotate(45deg);
+        background-color: white;
+        border-radius: ${({$ratio}) => $ratio * 5}px;
+    }
 
-  & ${InputRadioButton}:checked + ${RadioIconStyled}::before {
-    content: '';
-    position: absolute;
-    top: ${({$ratio}) => $ratio * 3}px;
-    right: ${({$ratio}) => $ratio * 5}px;
-    width: ${({$ratio}) => $ratio * 2}px;
-    height: ${({$ratio}) => $ratio * 11}px;
-    transform: rotate(-145deg);
-    background-color: white;
-    border-radius: ${({$ratio}) => $ratio * 5}px;
-  }
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::before {
+        content: '';
+        position: absolute;
+        top: ${({$ratio}) => $ratio * 3}px;
+        right: ${({$ratio}) => $ratio * 5}px;
+        width: ${({$ratio}) => $ratio * 2}px;
+        height: ${({$ratio}) => $ratio * 11}px;
+        transform: rotate(-145deg);
+        background-color: white;
+        border-radius: ${({$ratio}) => $ratio * 5}px;
+    }
 `;
 
 const Link = styled.a`
@@ -108,9 +111,21 @@ const Enter = styled(Button)`
     margin-top: ${({$ratio}) => $ratio * 15}px;
 `;
 
+const SmallText = styled.p`
+    position: relative;
+    z-index: 10;
+    margin-top: var(--spacing_small);
+    font-size: var(--font_xs);
+`;
+
+const IdText = styled.p`
+    margin-top: var(--spacing_small);
+`;
+
 export const Registration2 = () => {
     const ratio = useSizeRatio();
     const [isSending, setIsSending] = useState(false);
+    const [refId, setRefId] = useState('');
     const { next, setUserInfo, user, registrateUser, getUserInfo, currentWeek } = useProgress();
     const [isAlreadyHas, setIsAlreadyHas] = useState(false);
     const [isNetworkError, setIsNetworkError] = useState(false);
@@ -123,7 +138,7 @@ export const Registration2 = () => {
         if (isSending) return;
         const id = uid(7);
         setIsSending(true);
-        const info = await getUserInfo(email.toLowerCase());
+        const info = await getUserInfo(email.toLowerCase().trim());
         if (info && !info?.isError) {
             setIsAlreadyHas(true);
 
@@ -131,7 +146,7 @@ export const Registration2 = () => {
         }
 
         setUserInfo({name: `${name} ${surname}`, email: email.toLowerCase(), registerWeek: currentWeek, id});
-        const regInfo = await registrateUser({name: `${name} ${surname}`, email: email.toLowerCase(), id});
+        const regInfo = await registrateUser({name: `${name} ${surname}`, email: email.toLowerCase().trim(), id, refId});
 
         if (regInfo?.isError) {
             setIsNetworkError(true);
@@ -150,9 +165,10 @@ export const Registration2 = () => {
 
     return (
         <Wrapper>
-            <Picture />
             <Text $ratio={ratio}>
-                Каждую неделю будет открываться новый шифр, который приблизит тебя к разгадке главной тайны. {'\n\n'}
+                Каждую неделю будет открываться новый шифр, который приблизит тебя к разгадке главной тайны.
+            </Text>
+            <Text $ratio={ratio}>
                 Чтобы отслеживать прогресс, заполни свои реальные данные:
             </Text>
             <Input
@@ -181,6 +197,19 @@ export const Registration2 = () => {
                     Такая почта уже зарегистрирована. Попробуй ввести ещё раз или войди, чтобы разгадывать шифры.
                 </IncorrectText>
             )}
+            <IdText>
+                Введи ID друга,{'\n'}который тебя пригласил
+            </IdText>
+            <InputStyled 
+                type="text" 
+                value={refId} 
+                onChange={(e) => setRefId(e.target.value)} 
+                checkCorrect={() => true}
+                placeholder="ID"
+            />
+            <SmallText> 
+                Если позовёшь друга,{'\n'}сможешь получить {user.isVip ? '1 билетик' : '20 монеток'}
+            </SmallText>
             <RadioButtonLabel $ratio={ratio}>
                 <InputRadioButton
                     type="checkbox"

@@ -104,7 +104,7 @@ export const Login = () => {
             return;
         }
         setIsSending(true);
-        const info = await getUserInfo(email.toLowerCase());
+        const info = await getUserInfo(email.toLowerCase().trim());
         setIsSending(false);
 
         if (info?.isError) {

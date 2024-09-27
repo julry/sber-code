@@ -47,6 +47,8 @@ export const NewWeekModal = () => {
         updateUser(data);
         if (passedWeeks?.length > 0 && !passedWeeks.includes(currentWeek)) {
             setModal({visible: true, type: 'refresh'})
+        } else {
+            setModal({visible: false});
         }
     };
     

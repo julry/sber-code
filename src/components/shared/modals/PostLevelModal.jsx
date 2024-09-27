@@ -89,7 +89,8 @@ export const PostLevelModal = () => {
 
     const handleClick = () => {
         setModal({visible: false, week: modal.week});
-        if (user.isVip && passedWeeks.length < currentWeek) {
+        modal.onClose?.();
+        if (user.isVip && passedWeeks.length < currentWeek && currentWeek !== 4) {
             setTimeout(() => setModal({visible: true, week: modal.week, type: 'refresh'}), 0);
         } else if (passedWeeks.length === currentWeek && currentWeek !== 4) {
             setTimeout(() => setModal({visible: true, type: 'wait'}),0);
@@ -99,7 +100,7 @@ export const PostLevelModal = () => {
     return (
         <Modal>
             <Block>
-                {currentActiveWeek?.answer.map((ans) => (
+                {currentActiveWeek?.answer && currentActiveWeek?.answer.map((ans) => (
                     <AnswerBlock key={`ans_${ans.length}`}>
                         {
                             ans.split('').map((l, i) => (
@@ -115,12 +116,12 @@ export const PostLevelModal = () => {
                     {user.isVip && (
                         <PointsWrapper $ratio={ratio}>
                             <Ticket />
-                            <p>{TIPS_TO_POINTS[weekTips?.[modal.week]]?.tickets}</p>
+                            <p>{TIPS_TO_POINTS[weekTips?.[modal.week] ?? 0]?.tickets}</p>
                         </PointsWrapper>
                     )}
                     <PointsWrapper $ratio={ratio}>
                         <Coin />
-                        <p>{TIPS_TO_POINTS[weekTips?.[modal.week]]?.coins}</p>
+                        <p>{TIPS_TO_POINTS[weekTips?.[modal.week] ?? 0]?.coins}</p>
                     </PointsWrapper>
                     <Letters $ratio={ratio}>
                         {currentActiveWeek.letters.map((letter, ind) => (
@@ -131,7 +132,7 @@ export const PostLevelModal = () => {
                     </Letters>
                 </PointsBlock>
             </Block>
-            <ButtonStyled onClick={handleClick}>На главную</ButtonStyled>
+            <ButtonStyled onClick={handleClick}>{modal.btnText ?? 'На главную'}</ButtonStyled>
         </Modal>
     )
 }

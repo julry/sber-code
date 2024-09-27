@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.83f694e3.css",
-    "main.js": "./static/js/main.b2d0455d.js",
+    "main.js": "./static/js/main.5a0390a1.js",
     "static/media/lobby.png": "./static/media/lobby.8edd235e8f69ce5636ed.png",
     "static/media/start2.png": "./static/media/start2.ba6562d5466af1caa575.png",
     "static/media/game.png": "./static/media/game.9673bf664a4520afe824.png",
@@ -11,6 +11,7 @@
     "static/media/tip23.png": "./static/media/tip23.172350da5f0fafb4bc8d.png",
     "static/media/door.png": "./static/media/door.c8e13a2522d887912180.png",
     "static/media/doorLocked.png": "./static/media/doorLocked.56ae400dc2a630fb9bc8.png",
+    "static/media/reg2.png": "./static/media/reg2.a47406e0a34270099c39.png",
     "static/media/SBSansText-Bold.ttf": "./static/media/SBSansText-Bold.1a47ae3fa813642fde5b.ttf",
     "static/media/SBSansText-Semibold.ttf": "./static/media/SBSansText-Semibold.f4168a2fca385b3aea0d.ttf",
     "static/media/SBSansText-Light.ttf": "./static/media/SBSansText-Light.4d72cbeb6865dbcc2b09.ttf",
@@ -40,10 +41,10 @@
     "index.html": "./index.html",
     "static/media/icon-arrow.svg": "./static/media/icon-arrow.0aaa7337f52209d242dc851b419502e2.svg",
     "main.83f694e3.css.map": "./static/css/main.83f694e3.css.map",
-    "main.b2d0455d.js.map": "./static/js/main.b2d0455d.js.map"
+    "main.5a0390a1.js.map": "./static/js/main.5a0390a1.js.map"
   },
   "entrypoints": [
     "static/css/main.83f694e3.css",
-    "static/js/main.b2d0455d.js"
+    "static/js/main.5a0390a1.js"
   ]
 }
