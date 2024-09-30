@@ -49,6 +49,7 @@ export const weeks = [
     {
         id: '4_1',
         isFinal: true,
+        date: '07.10',
         postText: 'Последний шифр успешно разгадан! Получай заслуженные награды!',
         letters: [],
     }

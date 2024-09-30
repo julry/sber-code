@@ -49,7 +49,7 @@ const Progress = styled.div`
 export const LobbyHeader = (props) => {
     const ratio = useSizeRatio();
     const { setModal, passedWeeks} = useProgress();
-    const lastWeek = passedWeeks[passedWeeks.length - 1];
+    const lastWeek = passedWeeks[passedWeeks.length - 1] ?? 0;
 
     return (
         <Wrapper {...props}>

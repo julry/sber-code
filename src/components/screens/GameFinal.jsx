@@ -168,11 +168,7 @@ export const GameFinal = () => {
         setLetters(prev => prev.filter((_, ind) => ind !== index));
     }
 
-    const handleFinish = async () => {
-        if (saving) return;
-        setSaving(true);
-        await updateUser({isFinalFinished: true});
-        setSaving(false);
+    const handleFinish = () => {
         next();
     };
 
@@ -185,7 +181,7 @@ export const GameFinal = () => {
             const {coins, tickets} = TIPS_TO_POINTS[user.weekTips[5]] ?? {};
 
             const data = {
-                isFinishFinal: true
+                isFinalFinished: true
             };
             // reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_week${week}done`);    
             if (user.isVip) {
@@ -198,7 +194,7 @@ export const GameFinal = () => {
                 setPoints(prev => prev + coins);
             }
             updateUser(data);
-            setUserInfo({isFinishFinal: true});
+            setUserInfo({isFinalFinished: true});
             setModal({visible: true, type: 'postLevel', week: '4_1', btnText: 'Финал', onClick: handleFinish});
         }
     }

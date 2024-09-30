@@ -119,7 +119,7 @@ export const Lobby = () => {
     const [shown, setShown] = useState(isFinalOpened ? 4 : week - 1);
     const { registerWeek, isVip, weekTickets } = user;
 
-    const notShownNext = isFinalOpened ? shown === 4 : shown === 3;
+    const notShownNext = isFinalOpened ? shown >= 4 : shown >= 3;
     const NextButton = (
         <NextSliderButton $ratio={ratio} icon={{width: 40, height: 40}} $auto={notShownNext} disabled={notShownNext}>
             {notShownNext ? null : <LobbyArrow />}
@@ -139,6 +139,7 @@ export const Lobby = () => {
     }
 
     const handleClick = (id, isFinal) => {
+        if (isFinal && !isFinalOpened || user.isFinalFinished) return;
         if (isFinal) {
             next(SCREENS.FINAL_INTRO);
             return;
@@ -159,10 +160,10 @@ export const Lobby = () => {
     }, [isVip, registerWeek, weekTickets, setModal, currentWeek]);
     
     const getButtonText = (id, date, isFinal) => {
+        if (id > currentWeek || (currentWeek !== 4 && isFinal)) return `Откроется ${date}`;
         if (isFinal) return 'Финальный шифр';
 
         if (id <= week) return `Шифр №${id}`;
-        if (id > currentWeek) return `Откроется ${date}`;
 
         return 'Реши предыдущий шифр'
     }
@@ -190,7 +191,7 @@ export const Lobby = () => {
                 prevArrow={PrevButton}
                 beforeChange={(_, newInd) => setShown(newInd)}
             >
-                {weeks.map(({id, date, isFinal}) => (
+                {weeks.filter((week) => (week.isFinal && isFinalOpened) || !week.isFinal).map(({id, date, isFinal}) => (
                     <DoorBlock key={id}>
                         <CenterWrapper>
                             {id <= week || (isFinal && isFinalOpened) ? (
