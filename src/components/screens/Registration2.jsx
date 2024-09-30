@@ -97,8 +97,8 @@ const Link = styled.a`
 
 const IncorrectText = styled.p`
     width: ${({$ratio}) => $ratio * 274}px;
-    font-size: var(--font_sm);
-    margin-top: var(--spacing_small);
+    font-size: var(--font_xs);
+    margin-top: var(--spacing_x1);
 `;
 
 const Enter = styled(Button)`
@@ -136,11 +136,12 @@ export const Registration2 = () => {
 
     const handleClick = async () => {
         if (isSending) return;
-        const id = uid(7);
         setIsSending(true);
+        const id = uid(7);
         const info = await getUserInfo(email.toLowerCase().trim());
         if (info && !info?.isError) {
             setIsAlreadyHas(true);
+            setIsSending(false);
 
             return;
         }
@@ -150,6 +151,8 @@ export const Registration2 = () => {
 
         if (regInfo?.isError) {
             setIsNetworkError(true);
+            setIsSending(false);
+
             return;
         }
         setIsSending(false);
