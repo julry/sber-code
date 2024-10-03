@@ -14,6 +14,9 @@ import { Game3 } from "../components/screens/Game3";
 import { Game4 } from "../components/screens/Game4";
 import { FinalIntro } from "../components/screens/FinalIntro";
 import { GameFinal } from "../components/screens/GameFinal";
+import { PreFinish } from "../components/screens/PreFinish";
+import { Prizes } from "../components/screens/Prizes";
+import { Finish } from "../components/screens/Finish";
 
 import door from '../assets/images/door.png';
 import doorLocked from '../assets/images/doorLocked.png';
@@ -28,6 +31,7 @@ import tip22 from '../assets/images/tip22.png';
 import tip23 from '../assets/images/tip23.png';
 import reg from '../assets/images/reg.png';
 import reg2 from '../assets/images/reg2.png';
+
 
 export const screens = {
     [SCREENS.INTRO]: Intro,
@@ -44,6 +48,9 @@ export const screens = {
     [SCREENS.GAME4]: Game4,
     [SCREENS.FINAL_INTRO]: FinalIntro,
     [SCREENS.FINAL_GAME]: GameFinal,
+    [SCREENS.PRE_FINISH]: PreFinish,
+    [SCREENS.PRIZES]: Prizes,
+    [SCREENS.FINISH]: Finish
 };
 
 export const preloadImages = [game,door, doorLocked, intro, lobby, start1, start2, tip, tip21, tip22, tip23, reg, reg2];

@@ -89,7 +89,7 @@ export const PostLevelModal = () => {
 
     const handleClick = () => {
         setModal({visible: false, week: modal.week});
-        modal.onClose?.();
+        modal.onClick?.();
         if (user.isVip && passedWeeks.length < currentWeek && currentWeek !== 4) {
             setTimeout(() => setModal({visible: true, week: modal.week, type: 'refresh'}), 0);
         } else if (passedWeeks.length === currentWeek && currentWeek !== 4) {

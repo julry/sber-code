@@ -34,7 +34,7 @@ const InfoBlock = styled.div`
 `;
 
 export const TipsInfoModal = () => {
-    const { user, setModal} = useProgress();
+    const { user, modal, setModal} = useProgress();
 
     const handleClose = () => {
         setModal({visible: false});
@@ -43,27 +43,37 @@ export const TipsInfoModal = () => {
     return (
         <Modal>
             <BlockStyled>
-                <p>
-                    На каждом уровне тебе доступны 3 подсказки. Если найдёшь решение без них,{' '}
-                    {user.isVip ? 'то заработаешь 5 билетиков и 100 монеток.' : 'то получишь 100 монеток.'}
-                </p>
-                <Info>
-                    <p>
-                        Если используешь:
-                    </p>
-                    <InfoBlock>
-                        <TipBlock>1 подсказку</TipBlock>
-                        <p>начислим {user.isVip ? '3 билетика и ' : ''}70 монеток</p>
-                    </InfoBlock>
-                    <InfoBlock>
-                        <TipBlock>2 подсказки</TipBlock>
-                        <p>начислим {user.isVip ? '1 билетик и ' : ''}50 монеток</p>
-                    </InfoBlock>
-                    <InfoBlock>
-                        <TipBlock>3 подсказки</TipBlock>
-                        <p>начислим {user.isVip ? '0 билетиков и ' : ''}20 монеток</p>
-                    </InfoBlock>
-                </Info>
+                {
+                    modal.week === 5 ? (
+                        <p>
+                            Сначала нажимай на окошко, куда хочешь подставить символ, а потом на саму букву
+                        </p>
+                    ) : (
+                        <>
+                            <p>
+                                На каждом уровне тебе доступны 3 подсказки. Если найдёшь решение без них,{' '}
+                                {user.isVip ? 'то заработаешь 5 билетиков и 100 монеток.' : 'то получишь 100 монеток.'}
+                            </p>
+                            <Info>
+                                <p>
+                                    Если используешь:
+                                </p>
+                                <InfoBlock>
+                                    <TipBlock>1 подсказку</TipBlock>
+                                    <p>начислим {user.isVip ? '3 билетика и ' : ''}70 монеток</p>
+                                </InfoBlock>
+                                <InfoBlock>
+                                    <TipBlock>2 подсказки</TipBlock>
+                                    <p>начислим {user.isVip ? '1 билетик и ' : ''}50 монеток</p>
+                                </InfoBlock>
+                                <InfoBlock>
+                                    <TipBlock>3 подсказки</TipBlock>
+                                    <p>начислим {user.isVip ? '0 билетиков и ' : ''}20 монеток</p>
+                                </InfoBlock>
+                            </Info>
+                        </>
+                    )
+                }
             </BlockStyled>
             <ButtonStyled onClick={handleClose}>Понятно</ButtonStyled>
         </Modal>

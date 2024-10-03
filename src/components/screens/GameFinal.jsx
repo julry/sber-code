@@ -7,6 +7,7 @@ import { GameHeader } from "../shared/GameHeader";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { useState } from "react";
 import { TIPS_TO_POINTS } from "../../constants/tipsToPoints";
+import test from '../../assets/images/tip22.png';
 
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
@@ -95,7 +96,104 @@ const Separator = styled.p`
     margin-left: ${({$ratio}) => $ratio * 10}px;
 `;
 
-const initalLetters = ['й', 'в', 'ы', 'н', 'щ', 'о', 'т', 'е', 'а', 'к', 'т', 'т', 'и', 'с', 'д', 'т', 'я', 'и', 'е'];
+const fullLetters = [
+    {
+        id: 0,
+        l: 'й',
+        correctPosition: [{w: 1, l: [8]}],
+    },
+    {
+        id: 1,
+        l: 'в',
+        correctPosition: [{w: 2, l: [7]}],
+    },
+    {
+        id: 2,
+        l: 'ы',
+        correctPosition: [{w: 0, l: [1]}],
+    },
+    {
+        id: 3,
+        l: 'н',
+        correctPosition: [{w: 1, l: [0]}],
+    },
+    {
+        id: 4,
+        l: 'щ',
+        correctPosition: [{w: 1, l: [6]}],
+    },
+    {
+        id: 5,
+        l: 'о',
+        correctPosition: [{w: 1, l: [4]}],
+    },
+
+    {
+        id: 6,
+        l: 'т',
+        correctPosition: [{w: 2, l:[2, 5]}, {w: 0, l: [0]}, {w: 1, l: [3]}],
+    },
+    {
+        id: 7,
+        l: 'е',
+        correctPosition: [{w: 2, l: [1, 3]}],
+    },
+    {
+        id: 8,
+        l: 'а',
+        correctPosition: [{w: 1, l: [1]}],
+    },
+    {
+        id: 9,
+        l: 'к',        
+        correctPosition: [{w: 2, l: [4]}],
+    },
+    {
+        id: 10,
+        l: 'т',
+        correctPosition: [{w: 0, l: [0]}, {w: 1, l: [3]}, {w: 2, l:[2, 5]}],
+    },
+    {
+        id: 11,
+        l: 'т',
+        correctPosition: [{w: 2, l:[2, 5]}, {w: 1, l: [3]}, {w: 0, l: [0]}],
+    },
+    {
+        id: 12,
+        l: 'и',
+        correctPosition: [{w: 1, l: [7]}, {w: 2, l:[6]}],
+    },
+    {
+        id: 13,
+        l: 'с',
+        correctPosition: [{w: 1, l: [2]}],
+    },
+    {
+        id: 14,
+        l: 'д',
+        correctPosition: [{w: 2, l: [0]}],
+    },
+    {
+        id: 15,
+        l: 'т',
+        correctPosition: [{w: 1, l: [3]}, {w: 0, l: [0]}, {w: 2, l:[2, 5]}],
+    },
+    {
+        id: 16,
+        l: 'я',
+        correctPosition: [{w: 1, l: [5]}],
+    },
+    {
+        id: 17,
+        l: 'и',
+        correctPosition: [{w: 2, l:[6]}, {w: 1, l: [7]}],
+    },
+    {
+        id: 18,
+        l: 'е',
+        correctPosition: [{w: 2, l: [3, 1]}],
+    },
+];
 
 
 export const GameFinal = () => {
@@ -103,69 +201,109 @@ export const GameFinal = () => {
     const { setModal, next, updateUser, setUserInfo, setPoints, user, vipPoints, points, weekPoints, setVipPoints, setWeekPoints } = useProgress();
     const [saving, setSaving] = useState(false);
     const [selected, setSelected] = useState([0, 0]);
-    const [firstWord, setFirstWord] = useState(['', '']);
-    const [secondWord, setSecondWord] = useState(['', '', '', '', '', '', '', '', '']);
-    const [thirdWord, setThirdWord] = useState(['', '', '', '', '', '', '', '']);
-    const [letters, setLetters] = useState(initalLetters);
-    const answer1 = 'Ты';
-    const answer2 = 'настоящий';
-    const answer3 = 'детектив';
+    const [phrase, setPhrase] = useState([['', ''], ['', '', '', '', '', '', '', '', ''], ['', '', '', '', '', '', '', '']]);
+    const [letters, setLetters] = useState(fullLetters);
+    const [tipsLetters, setTipLetters] = useState([]);
+    const answer = ['Ты', 'настоящий', 'детектив'];
+  
+    const getRandomIndex = () => Math.floor(0 + Math.random() * letters.length);
 
-    const handleClickTip = () => {
+    const handleClickTip = async () => {
+        if (saving) return;
+        if (user.weekTips[5] === 3) return;
+        if (letters.length < 1) return;
 
+        setSaving(true);
+
+        const index1 = getRandomIndex();
+        let index2 = getRandomIndex();
+        
+        if (index1 === index2) {
+            if (index1 === (letters.length - 1)) index2 = 0;
+            else index2 = index1 + 1;
+        }
+
+        const letter1 = letters[index1];
+        const letter2 = letters[index2];
+        
+        let w1;
+        let w2;
+        let l1;
+        let l2;
+
+        letter1.correctPosition.forEach(({w, l}) => {
+            if (!!w1 && !!l1) return;
+            l.forEach((letter) => {
+                if (!!w1 && !!l1) return;
+                if (!phrase[w][letter].length) {
+                    w1 = w;
+                    l1 = letter;
+                }
+            })
+        })
+
+        letter2.correctPosition.forEach(({w, l}) => {
+            if (!!w2 && !!l2) return;
+            l.forEach((letter) => {
+                if (!!w2 && !!l2) return;
+                if (!phrase[w][letter]?.length) {
+                    w2 = w;
+                    l2 = letter;
+                }
+            })
+        });
+
+        const newPhrase = [...phrase];
+
+        newPhrase[w1][l1] = letter1.l;
+        newPhrase[w2][l2] = letter2.l;
+
+        setTipLetters(prev => [...prev, {w: w1, l: l1}, {w: w2, l: l2}]);
+        setLetters(prev => prev.filter(prevLetter => prevLetter.id !== letter1.id && prevLetter.id !== letter2.id));
+        setPhrase(newPhrase);
+        await updateUser({weekTips: Object.values({...user.weekTips, 5: (user.weekTips[5] ?? 0) + 1}).join(',')});
+        setUserInfo({weekTips: {...user.weekTips, 5:  (user.weekTips[5] ?? 0) + 1}});
+        setSaving(false);
     }
 
     const handleLetterClick = (letter, index) => {
-        let nextX; let nextY;
         if (selected.length < 2) return;
 
-        if (selected[0] === 0) {
-            const index = selected[1];
+        const [wordIndex, selectedIndex] = selected;
 
-            if (index > (firstWord.length - 1)) return;
-            if (index + 1 === firstWord.length) {
-                nextX = 1;
-                nextY = 0;
-            } else {
-                nextX = 0;
-                nextY = 1;
+        if (!phrase[wordIndex] || phrase[wordIndex][selectedIndex].length) return;
+        let nextX = wordIndex; 
+        let nextY = selectedIndex;
+
+        const newPhrase = [...phrase];
+
+        const word = [...phrase[wordIndex]];
+        if (selectedIndex > (word.length - 1)) return;
+        if (selectedIndex + 1 === word.length) {
+            if (wordIndex !== phrase.length - 1) {
+                nextX = wordIndex + 1;
+                nextY = 0
             }
-            const word = [...firstWord];
-            word[index] = letter; 
-            setFirstWord(word)
+        } else {
+            nextX = wordIndex;
+            nextY = selectedIndex + 1;
         }
 
-        if (selected[0] === 1) {
-            const index = selected[1];
+        word[selectedIndex] = letter; 
+        newPhrase[wordIndex] = word;
 
-            if (index > (secondWord.length - 1)) return;
-            if (index + 1 === secondWord.length) {
-                nextX = 2;
-                nextY = 0;
-            } else {
-                nextX = 1;
-                nextY = index + 1;
-            }
-            const word = [...secondWord];
-            word[index] = letter; 
-            setSecondWord(word)
-        }
-
-        if (selected[0] === 2) {
-            const index = selected[1];
-
-            if (index > (thirdWord.length - 1)) return;
-            if (index !== (thirdWord.length - 1)) {
-                nextX = 2;
-                nextY = index + 1;
-            }
-            const word = [...thirdWord];
-            word[index] = letter; 
-            setThirdWord(word)
-        }
-
+        setPhrase(newPhrase);
         setSelected([nextX, nextY]);
-        setLetters(prev => prev.filter((_, ind) => ind !== index));
+        setLetters(prev => prev.filter(({id}) => id !== index));
+    }
+
+    const handleLetterDelete = (wordIndex, selectedIndex) => {
+        const word = [...phrase[wordIndex]];
+        const letter = word[selectedIndex];
+        word[selectedIndex] = '';
+        const returnedLetter = fullLetters.find(({l, id}) => l === letter && !letters.find(({id: newId}) => newId === id));
+
+        setLetters(prev => prev.find(({id}) => id === returnedLetter.id) ? prev : [...prev, returnedLetter]);
     }
 
     const handleFinish = () => {
@@ -173,12 +311,10 @@ export const GameFinal = () => {
     };
 
     const handleCheck = () => {
-        const isFirst = firstWord.join('').toUpperCase() === answer1.toUpperCase();
-        const isSecond = secondWord.join('').toUpperCase() === answer2.toUpperCase();
-        const isThird = thirdWord.join('').toUpperCase() === answer3.toUpperCase();
-
-        if (isFirst && isSecond && isThird) {
-            const {coins, tickets} = TIPS_TO_POINTS[user.weekTips[5]] ?? {};
+        if (saving) return;
+        if (phrase.every((word, ind) => word.join('').toUpperCase() === answer[ind].toUpperCase())) {
+            const {coins, tickets} = TIPS_TO_POINTS[user.weekTips[5] ?? 0] ?? {};
+            setSaving(true);
 
             const data = {
                 isFinalFinished: true
@@ -196,59 +332,39 @@ export const GameFinal = () => {
             updateUser(data);
             setUserInfo({isFinalFinished: true});
             setModal({visible: true, type: 'postLevel', week: '4_1', btnText: 'Финал', onClick: handleFinish});
+            setSaving(false);
         }
     }
     
     return (
         <Wrapper $ratio={ratio}>
            <GameHeader onClickTip={handleClickTip} week={5}/>
-           <AnswerLine>
-                {firstWord.map((l, ind) => (
+           {phrase.map((word, wordInd) => (
+                <AnswerLine key={`word_${wordInd}_${phrase.length}`}>
+                {word.map((l, ind) => (
                     <PickedLetter 
-                        key={`picked1${ind}`} 
-                        $active={selected[0] === 0 && selected[1] === ind} 
+                        key={`picked${wordInd}_${ind}`} 
+                        $active={selected[0] === wordInd && selected[1] === ind && letters.length} 
                         $ratio={ratio} 
-                        onClick={() => setSelected([0, ind])}
+                        onClick={() => setSelected([wordInd, ind])}
                     >
                         {l}
                     </PickedLetter>
                 ))}
-                <Separator $ratio={ratio}>—</Separator>
+                {wordInd === 0 && (<Separator $ratio={ratio}>—</Separator>)}
            </AnswerLine>
-           <AnswerLine>
-                {secondWord.map((l, ind) => (
-                    <PickedLetter 
-                        key={`picked2${ind}`}
-                        $active={selected[0] === 1 && selected[1] === ind} 
-                        $ratio={ratio} 
-                        onClick={() => setSelected([1, ind])}
-                    >{l}</PickedLetter>
-                ))}
-           </AnswerLine>
-           <AnswerLine>
-                {thirdWord.map((l, ind) => (
-                    <PickedLetter 
-                        $ratio={ratio} 
-                        key={`picked3${ind}`}
-                        $active={selected[0] === 2 && selected[1] === ind} 
-                        onClick={() => setSelected([2, ind])}
-                    >
-                        {l}
-                    </PickedLetter>
-                ))}
-           </AnswerLine>
+           ))}
            <ButtonStyled 
                 onClick={handleCheck}
-                // disabled={!(firstWord.every(f => !!f) && secondWord.every(f => !!f) && thirdWord.every(f => !!f))}
+                disabled={!phrase.every((word) => word.every(f => !!f))}
             >
                 Ввести
             </ButtonStyled>
            <LettersWrapper>
-                {letters.map((l, ind) => (
-                    <Letter key={l + ind} $ratio={ratio} onClick={() => handleLetterClick(l, ind)}>{l}</Letter>
+                {letters.map(({l, id}, ind) => (
+                    <Letter key={id} $ratio={ratio} onClick={() => handleLetterClick(l, id)}>{l}</Letter>
                 ))}
            </LettersWrapper>
-           
         </Wrapper>
     )
 }

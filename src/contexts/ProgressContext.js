@@ -12,7 +12,7 @@ const INITIAL_USER = {
     fac: 'Факультет химических технологий, промышленной экологии и биотехнологий',
     isVip: true,
     seenInfo: false,
-    isTgConnected: false,
+    isTgConnected: true,
     // weekTickets: [1,2,3],
     weekTickets: [],
     weekTips: {1: 0, 2: 0, 3: 0, 4: 0},

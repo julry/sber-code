@@ -33,7 +33,7 @@ export const GameHeader = ({ onClickTip, week }) => {
     const { setModal, user} = useProgress();
 
     const handleClickInfo = () => {
-        setModal({visible: true, type: 'tipsInfo'});
+        setModal({visible: true, type: 'tipsInfo', week});
     }
 
     return (
