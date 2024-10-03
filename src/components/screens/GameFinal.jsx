@@ -361,7 +361,7 @@ export const GameFinal = () => {
                 Ввести
             </ButtonStyled>
            <LettersWrapper>
-                {letters.map(({l, id}, ind) => (
+                {letters.map(({l, id}) => (
                     <Letter key={id} $ratio={ratio} onClick={() => handleLetterClick(l, id)}>{l}</Letter>
                 ))}
            </LettersWrapper>

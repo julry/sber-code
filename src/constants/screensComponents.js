@@ -31,6 +31,9 @@ import tip22 from '../assets/images/tip22.png';
 import tip23 from '../assets/images/tip23.png';
 import reg from '../assets/images/reg.png';
 import reg2 from '../assets/images/reg2.png';
+import prizesDoor from '../assets/images/prizesDoor.png';
+import prizesKey from '../assets/images/prizesKey.png';
+import finalBg from '../assets/images/finalBg.png';
 
 
 export const screens = {
@@ -53,4 +56,8 @@ export const screens = {
     [SCREENS.FINISH]: Finish
 };
 
-export const preloadImages = [game,door, doorLocked, intro, lobby, start1, start2, tip, tip21, tip22, tip23, reg, reg2];
+export const preloadImages = [ 
+    game, door, doorLocked, intro, lobby, start1, 
+    start2, tip, tip21, tip22, tip23, reg, reg2,
+    finalBg, prizesDoor, prizesKey
+];

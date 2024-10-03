@@ -1,15 +1,18 @@
 {
   "files": {
     "main.css": "./static/css/main.83f694e3.css",
-    "main.js": "./static/js/main.713a87cb.js",
+    "main.js": "./static/js/main.16eb872e.js",
     "static/media/lobby.png": "./static/media/lobby.8edd235e8f69ce5636ed.png",
     "static/media/start2.png": "./static/media/start2.ba6562d5466af1caa575.png",
     "static/media/game.png": "./static/media/game.9673bf664a4520afe824.png",
     "static/media/longLvlBg.png": "./static/media/longLvlBg.56a283f2aec1f4f98dd4.png",
+    "static/media/prizesKey.png": "./static/media/prizesKey.0f6d872f9fb231b2da1f.png",
+    "static/media/prizesDoor.png": "./static/media/prizesDoor.eae5c1d466b7e22833f7.png",
     "static/media/tip22.png": "./static/media/tip22.be2df8d7c5c73cef71bf.png",
     "static/media/tip21.png": "./static/media/tip21.0cbf8f57ebf5d682f7a6.png",
     "static/media/tip23.png": "./static/media/tip23.172350da5f0fafb4bc8d.png",
     "static/media/door.png": "./static/media/door.c8e13a2522d887912180.png",
+    "static/media/finalBg.png": "./static/media/finalBg.920bb3b482f8536baf21.png",
     "static/media/doorLocked.png": "./static/media/doorLocked.56ae400dc2a630fb9bc8.png",
     "static/media/reg2.png": "./static/media/reg2.a47406e0a34270099c39.png",
     "static/media/SBSansText-Bold.ttf": "./static/media/SBSansText-Bold.1a47ae3fa813642fde5b.ttf",
@@ -41,10 +44,10 @@
     "index.html": "./index.html",
     "static/media/icon-arrow.svg": "./static/media/icon-arrow.0aaa7337f52209d242dc851b419502e2.svg",
     "main.83f694e3.css.map": "./static/css/main.83f694e3.css.map",
-    "main.713a87cb.js.map": "./static/js/main.713a87cb.js.map"
+    "main.16eb872e.js.map": "./static/js/main.16eb872e.js.map"
   },
   "entrypoints": [
     "static/css/main.83f694e3.css",
-    "static/js/main.713a87cb.js"
+    "static/js/main.16eb872e.js"
   ]
 }

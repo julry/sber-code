@@ -5,6 +5,7 @@ import { preloadImages } from "../constants/screensComponents";
 import { useProgress } from "../contexts/ProgressContext";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 import {getModalByType} from "../utils/getModalByType";
+import { Plug } from "./screens/Plug";
 
 const Wrapper = styled.div`
     position: relative;
