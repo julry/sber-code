@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useEffect } from "react";
 import { FlexWrapper } from "../shared/FlexWrapper";
 import longLvlBg from '../../assets/images/longLvlBg.png';
 import { useProgress } from "../../contexts/ProgressContext";
@@ -7,7 +8,6 @@ import { GameHeader } from "../shared/GameHeader";
 import { useSizeRatio } from "../../hooks/useSizeRatio";
 import { useState } from "react";
 import { TIPS_TO_POINTS } from "../../constants/tipsToPoints";
-import test from '../../assets/images/tip22.png';
 
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
@@ -203,9 +203,12 @@ export const GameFinal = () => {
     const [selected, setSelected] = useState([0, 0]);
     const [phrase, setPhrase] = useState([['', ''], ['', '', '', '', '', '', '', '', ''], ['', '', '', '', '', '', '', '']]);
     const [letters, setLetters] = useState(fullLetters);
-    const [tipsLetters, setTipLetters] = useState([]);
     const answer = ['Ты', 'настоящий', 'детектив'];
   
+    useEffect(() => {
+        setModal({visible: true, type: 'tipsInfo', week: 5});
+    }, []);
+
     const getRandomIndex = () => Math.floor(0 + Math.random() * letters.length);
 
     const handleClickTip = async () => {
@@ -258,7 +261,7 @@ export const GameFinal = () => {
         newPhrase[w1][l1] = letter1.l;
         newPhrase[w2][l2] = letter2.l;
 
-        setTipLetters(prev => [...prev, {w: w1, l: l1}, {w: w2, l: l2}]);
+        // setTipLetters(prev => [...prev, {w: w1, l: l1}, {w: w2, l: l2}]);
         setLetters(prev => prev.filter(prevLetter => prevLetter.id !== letter1.id && prevLetter.id !== letter2.id));
         setPhrase(newPhrase);
         await updateUser({weekTips: Object.values({...user.weekTips, 5: (user.weekTips[5] ?? 0) + 1}).join(',')});
@@ -296,14 +299,26 @@ export const GameFinal = () => {
         setSelected([nextX, nextY]);
         setLetters(prev => prev.filter(({id}) => id !== index));
     }
+    
+    const handleClickLetter = (wordInd, ind) => {
+        if (selected[0] === wordInd && selected[1] === ind) {
+            deleteLetter(wordInd, ind);
+            return;
+        }
 
-    const handleLetterDelete = (wordIndex, selectedIndex) => {
+        setSelected([wordInd, ind]);
+    }
+
+    const deleteLetter = (wordIndex, selectedIndex) => {
+        const newPhrase = [...phrase];
         const word = [...phrase[wordIndex]];
         const letter = word[selectedIndex];
         word[selectedIndex] = '';
+        newPhrase[wordIndex] = word;
         const returnedLetter = fullLetters.find(({l, id}) => l === letter && !letters.find(({id: newId}) => newId === id));
 
         setLetters(prev => prev.find(({id}) => id === returnedLetter.id) ? prev : [...prev, returnedLetter]);
+        setPhrase(newPhrase);
     }
 
     const handleFinish = () => {
@@ -319,7 +334,7 @@ export const GameFinal = () => {
             const data = {
                 isFinalFinished: true
             };
-            // reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_week${week}done`);    
+
             if (user.isVip) {
                 data[`week4Points`] = weekPoints + coins;
                 setWeekPoints(prev => prev + coins);
@@ -336,6 +351,7 @@ export const GameFinal = () => {
         }
     }
     
+    
     return (
         <Wrapper $ratio={ratio}>
            <GameHeader onClickTip={handleClickTip} week={5}/>
@@ -344,9 +360,9 @@ export const GameFinal = () => {
                 {word.map((l, ind) => (
                     <PickedLetter 
                         key={`picked${wordInd}_${ind}`} 
-                        $active={selected[0] === wordInd && selected[1] === ind && letters.length} 
+                        $active={selected[0] === wordInd && selected[1] === ind} 
                         $ratio={ratio} 
-                        onClick={() => setSelected([wordInd, ind])}
+                        onClick={() => handleClickLetter(wordInd, ind)}
                     >
                         {l}
                     </PickedLetter>
