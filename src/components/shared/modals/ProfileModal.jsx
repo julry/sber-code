@@ -68,12 +68,23 @@ const PointsWrapper = styled(Wrapper)`
 
 export const ProfileModal = () => {
     const ratio = useSizeRatio();
-    const { user, weekPoints, vipPoints, points, setModal, passedWeeks } = useProgress();
+    const { user, weekPoints, vipPoints, points, setModal, passedWeeks, currentWeek } = useProgress();
+    const isFinalWeek = currentWeek === 5;
     const isLastWeek = ((passedWeeks[passedWeeks.length - 1] ?? 0) + 1) >= 4;
 
+    const handleClose = () => {
+        if (isFinalWeek) {
+            setModal({visible: true, type: 'endGame'});
+
+            return;
+        }
+
+        setModal({visible: false});
+    };
+    
     return (
         <Modal>
-            <BlockStyled onClose={() => setModal({visible: false})} hasCloseIcon>
+            <BlockStyled onClose={handleClose} hasCloseIcon>
                 <IdBlock>
                     <ProfileIcon $ratio={ratio} color={'var(--color-black)'}/>
                     <Text>ID {user.id}</Text>

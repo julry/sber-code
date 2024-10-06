@@ -39,7 +39,6 @@ const INITIAL_STATE = {
     vipPoints: 0,
     weekPoints: 0,
     user: INITIAL_USER,
-    // passedWeeks: [1, 2, 3, 4],
     passedWeeks: [],
 }
 
@@ -123,7 +122,7 @@ export function ProgressProvider(props) {
             week2Points, 
             week3Points, 
             week4Points,
-            [`week${currentWeek}Points`]: weekPoints,
+            [`week${currentWeek > 4 ? 4 : currentWeek}Points`]: weekPoints,
             seenInfo, 
             registerWeek,
             passedWeeks: passedWeeks.join(','),
@@ -234,7 +233,7 @@ export function ProgressProvider(props) {
             setPassedWeeks(passed);
             setPoints(data?.points ?? 0);
             setVipPoints(data?.targetPoints ?? 0);
-            setWeekPoints(data?.[`week${currentWeek}Points`] ?? 0);
+            setWeekPoints(data?.[`week${currentWeek > 4 ? 4 : currentWeek}Points`] ?? 0);
 
             return {userInfo, passed};
        } catch (e) {

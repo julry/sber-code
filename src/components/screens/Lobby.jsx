@@ -15,7 +15,6 @@ import { weeks } from "../../constants/weeks";
 import { useLayoutEffect } from "react";
 import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 import { SCREENS } from "../../constants/screens";
-import { useEffect } from "react";
 
 const Wrapper = styled.div`
     width: 100%;
@@ -77,6 +76,11 @@ const SliderButton = styled(IconButton)`
     &::before {
         display: none;
     }
+
+    &:disabled {
+        background: none;
+        opacity: 0;
+    }
 `;
 
 const CenterWrapper = styled(FlexWrapper)`
@@ -113,6 +117,7 @@ const RulesButton = styled(Button)`
 export const Lobby = () => {
     const ratio = useSizeRatio();
     const { passedWeeks, user, setModal, currentWeek, next, setUserInfo } = useProgress();
+    const isFinalWeek = currentWeek >= 5;
     const lastWeek = (passedWeeks[passedWeeks.length - 1] ?? 0) + 1;
     const week = lastWeek > currentWeek ? currentWeek : lastWeek;
     const isFinalOpened = passedWeeks.includes(4);
@@ -139,7 +144,7 @@ export const Lobby = () => {
     }
 
     const handleClick = (id, isFinal) => {
-        if (isFinal && !isFinalOpened || user.isFinalFinished) return;
+        if ((isFinal && !isFinalOpened) || user.isFinalFinished) return;
         if (isFinal) {
             next(SCREENS.FINAL_INTRO);
             return;
@@ -151,13 +156,19 @@ export const Lobby = () => {
     };
 
     useLayoutEffect(() => {
+        if (isFinalWeek) {
+            setModal({visible: true, type: 'endGame'});
+
+            return;
+        }
+
         if (isVip && registerWeek !== currentWeek && !weekTickets.includes(currentWeek)) {
             setModal({visible: true, type: 'newWeek'});
         } else if (isVip && !user.startRefresh && weekTickets.includes(currentWeek) && passedWeeks?.length > 0 && !passedWeeks.includes(currentWeek)) {
             setUserInfo({startRefresh: true});
             setModal({visible: true, type: 'refresh'});
         }
-    }, [isVip, registerWeek, weekTickets, setModal, currentWeek]);
+    }, [isVip, registerWeek, weekTickets, setModal, currentWeek, isFinalWeek]);
     
     const getButtonText = (id, date, isFinal) => {
         if (id > currentWeek || (currentWeek !== 4 && isFinal)) return `Откроется ${date}`;

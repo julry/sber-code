@@ -16,7 +16,8 @@ import {
     LoseModal,
     WinModal,
     TicketModal,
-    CoinsModal
+    CoinsModal,
+    EndGameModal
 } from "../components/shared/modals";
 
 export const getModalByType = (type) => {
@@ -76,6 +77,9 @@ export const getModalByType = (type) => {
             break;  
         case 'coins': 
             Component = CoinsModal;
+            break;
+        case 'endGame': 
+            Component = EndGameModal;
             break;
         default:
             return;
