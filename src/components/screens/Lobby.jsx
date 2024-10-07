@@ -144,9 +144,9 @@ export const Lobby = () => {
     }
 
     const handleClick = (id, isFinal) => {
-        if ((isFinal && !isFinalOpened) || user.isFinalFinished) return;
+        if (isFinal && !isFinalOpened) return;
         if (isFinal) {
-            next(SCREENS.FINAL_INTRO);
+            next(user.isFinalFinished ? SCREENS.FINISH : SCREENS.FINAL_INTRO);
             return;
         }
 
@@ -208,7 +208,7 @@ export const Lobby = () => {
                             {id <= week || (isFinal && isFinalOpened) ? (
                                 <OpenDoor $ratio={ratio}>
                                     {(passedWeeks.includes(id) || (isFinal && user.isFinalFinished)) && (
-                                        <DoneMarkStyled $ratio={ratio} onClick={() => handleClick(id)}/> 
+                                        <DoneMarkStyled $ratio={ratio} onClick={() => handleClick(id, isFinal)}/> 
                                     )}
                                 </OpenDoor>
                             ) : <ClosedDoor $ratio={ratio}/>}
