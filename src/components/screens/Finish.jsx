@@ -40,7 +40,7 @@ export const Finish = () => {
             <p>
                 За дверью всё это время тебя ждал старт карьеры в Сбере. Скорее переходи к стажировке{'\n'}и отправляй заявку!
             </p>
-            <ButtonStyled $ratio={ratio} onClick={() => window.open('', '_blank')}>Узнать</ButtonStyled>
+            <ButtonStyled $ratio={ratio} onClick={() => window.open('https://sbergraduate.ru/sberseasons-moscow', '_blank')}>Узнать</ButtonStyled>
                 <p>За всё время тебе удалось заработать {getUserCoins()} монеток{user.isVip ? ` и ${vipPoints} билетиков` : ''}.
                 {user.isVip ? (
                     ' Регулярно проверяй почту и следи за результатами розыгрыша iPhone 15 Pro Max и карьерных консультаций!'

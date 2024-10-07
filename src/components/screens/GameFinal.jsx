@@ -316,8 +316,9 @@ export const GameFinal = () => {
         word[selectedIndex] = '';
         newPhrase[wordIndex] = word;
         const returnedLetter = fullLetters.find(({l, id}) => l === letter && !letters.find(({id: newId}) => newId === id));
-
-        setLetters(prev => prev.find(({id}) => id === returnedLetter.id) ? prev : [...prev, returnedLetter]);
+        if (!returnedLetter) return;
+        
+        setLetters(prev => prev.find(({id}) => id === returnedLetter?.id) ? prev : [...prev, returnedLetter]);
         setPhrase(newPhrase);
     }
 
