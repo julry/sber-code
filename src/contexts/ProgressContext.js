@@ -100,7 +100,7 @@ export function ProgressProvider(props) {
 
     const updateUser = async (changed) => {
         const { 
-            isVip, recordId, weekTickets, id, name, email, registerWeek, weekTips, refId,
+            isVip, recordId, weekTickets, id, name, email, registerWeek, weekTips, refId, isFinalFinished,
             university, isTgConnected, seenInfo, week1Points, week2Points, week3Points, week4Points,
         } = user;
 
@@ -126,6 +126,7 @@ export function ProgressProvider(props) {
             seenInfo, 
             registerWeek,
             passedWeeks: passedWeeks.join(','),
+            isFinalFinished,
             ...changed,
         };
 
@@ -218,6 +219,7 @@ export function ProgressProvider(props) {
                 week2Points: data.week2Points,  
                 week3Points: data.week3Points, 
                 week4Points: data.week4Points, 
+                isFinalFinished: data.isFinalFinished,
             };
 
             if (isAfterTg) {

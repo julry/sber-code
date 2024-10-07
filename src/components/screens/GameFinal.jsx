@@ -261,7 +261,6 @@ export const GameFinal = () => {
         newPhrase[w1][l1] = letter1.l;
         newPhrase[w2][l2] = letter2.l;
 
-        // setTipLetters(prev => [...prev, {w: w1, l: l1}, {w: w2, l: l2}]);
         setLetters(prev => prev.filter(prevLetter => prevLetter.id !== letter1.id && prevLetter.id !== letter2.id));
         setPhrase(newPhrase);
         await updateUser({weekTips: Object.values({...user.weekTips, 5: (user.weekTips[5] ?? 0) + 1}).join(',')});
@@ -317,7 +316,7 @@ export const GameFinal = () => {
         newPhrase[wordIndex] = word;
         const returnedLetter = fullLetters.find(({l, id}) => l === letter && !letters.find(({id: newId}) => newId === id));
         if (!returnedLetter) return;
-        
+
         setLetters(prev => prev.find(({id}) => id === returnedLetter?.id) ? prev : [...prev, returnedLetter]);
         setPhrase(newPhrase);
     }
@@ -349,6 +348,8 @@ export const GameFinal = () => {
             setUserInfo({isFinalFinished: true});
             setModal({visible: true, type: 'postLevel', week: '4_1', btnText: 'Финал', onClick: handleFinish});
             setSaving(false);
+        } else {
+            setModal({visible: true, type: 'lose', text: 'Ты был совсем близко, нужно всего лишь подумать над шифром ещё немного!', btnText: 'Подумать ещё'});
         }
     }
     

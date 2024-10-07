@@ -207,7 +207,7 @@ export const Lobby = () => {
                         <CenterWrapper>
                             {id <= week || (isFinal && isFinalOpened) ? (
                                 <OpenDoor $ratio={ratio}>
-                                    {passedWeeks.includes(id) && (
+                                    {(passedWeeks.includes(id) || (isFinal && user.isFinalFinished)) && (
                                         <DoneMarkStyled $ratio={ratio} onClick={() => handleClick(id)}/> 
                                     )}
                                 </OpenDoor>

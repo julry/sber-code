@@ -27,7 +27,7 @@ export const LoseModal = () => {
             <BlockStyled>
                 <p>{modal.text}</p>
             </BlockStyled>
-            <ButtonStyled onClick={handleClick}>Ещё раз</ButtonStyled>
+            <ButtonStyled onClick={handleClick}>{modal.btnText ?? 'Ещё раз'}</ButtonStyled>
         </Modal>
     )
 }
