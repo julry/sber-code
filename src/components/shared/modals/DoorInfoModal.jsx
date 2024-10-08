@@ -23,6 +23,7 @@ export const DoorInfoModal = () => {
         setModal({visible: false, week: modal.week});
 
         if (isPassed) return;
+        window?._tmr?.push({ type: 'reachGoal', id: 3564011, goal: 'stat-sba'});
         modal.onNext?.();
         next(WEEK_TO_GAME[modal.week]);
     }

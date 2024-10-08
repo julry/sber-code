@@ -139,13 +139,14 @@ export const Lobby = () => {
 
     const handleNextDoor = (id) => {
         if (id === 1) setModal({visible: true, type: 'tipsRules', week: 1});
-
         reachMetrikaGoal(`${user.isVip ? '' : 'non'}target_code${id}`);
     }
 
     const handleClick = (id, isFinal) => {
         if (isFinal && !isFinalOpened) return;
+
         if (isFinal) {
+            if (!user.isFinalFinished) window?._tmr?.push({ type: 'reachGoal', id: 3564011, goal: 'stat-sba'});
             next(user.isFinalFinished ? SCREENS.FINISH : SCREENS.FINAL_INTRO);
             return;
         }

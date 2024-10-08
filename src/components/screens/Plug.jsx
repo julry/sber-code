@@ -55,7 +55,7 @@ export const Plug = () => {
             <Light $ratio={ratio}/>
             <Title $ratio={ratio}/>
             <p>
-                Следи за другими{'\n'}мероприятиями{'\n'}и проектами Сбера <a href="/" target="_blank">тут</a>
+                Следи за другими{'\n'}мероприятиями{'\n'}и проектами Сбера <a href="https://t.me/careersber" target="_blank">тут</a>
             </p>
         </Wrapper>
     )
