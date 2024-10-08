@@ -68,8 +68,19 @@ const Enter = styled(Button)`
 `;
 
 export const Intro = () => {
-    const {next} = useProgress();
+    const {next, currentWeek} = useProgress();
     const ratio = useSizeRatio();
+
+    const handleReg = () => {
+        if (currentWeek >= 5) {
+            next(SCREENS.PLUG);
+
+            return;
+        }
+
+        next(SCREENS.REG_1);
+    };
+
     return (
         <Wrapper>
             <Logo />
@@ -85,7 +96,7 @@ export const Intro = () => {
                     К чему? Узнаешь в процессе!
                 </p>
                 <ButtonWrapper>
-                    <Button onClick={() => next(SCREENS.REG_1)}>Регистрация</Button>
+                    <Button onClick={handleReg}>Регистрация</Button>
                     <Enter $ratio={ratio} onClick={() => next(SCREENS.LOGIN)}>Вход</Enter>
                 </ButtonWrapper>
             </BlockStyled>
