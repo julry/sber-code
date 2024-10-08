@@ -16,11 +16,21 @@ const BlockStyled = styled(Block)`
     }
 `;
 
+const ProfileBtn = styled(Button)`
+    background: transparent;
+    border: none;
+    width: auto;
+    padding: 0 1px 0 1px;
+    border-radius: 0;
+    border-bottom: 1px solid white;
+    margin-top: var(--spacing_x4);
+`;
+
 export const EndGameModal = () => {
     const { user, setModal } = useProgress();
 
     const handleClick = () => {
-        setModal({type: 'profile', visible: true});
+        window.open('https://t.me/careersber', '_blank');
     }
 
     return (
@@ -31,10 +41,13 @@ export const EndGameModal = () => {
                     Здесь ты можешь посмотреть накопленные баллы и данные профиля.{'\n\n'}
                     Следи за оповещениями{' '}
                     <a href={`https://t.me/sbercryptography_bot?start=email_${btoa(user.email)}`} rel="noreferrer" target="_blank">в боте</a>,{' '} 
-                    чтобы не упустить результаты розыгрыша.
+                    чтобы не пропустить результаты розыгрыша.
+                    {'\n\n'}
+                    Узнавай о карьерных возможностях и мероприятиях Сбера в ТГ-канале!
                 </p>
             </BlockStyled>
-            <ButtonStyled onClick={handleClick}>Посмотреть прогресс</ButtonStyled>
+            <ButtonStyled onClick={handleClick}>Перейти</ButtonStyled>
+            <ProfileBtn onClick={() => setModal({type: 'profile', visible: true})}>Посмотреть прогресс</ProfileBtn>
         </Modal>
     )
 }
