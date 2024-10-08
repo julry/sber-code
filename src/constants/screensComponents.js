@@ -34,6 +34,7 @@ import reg2 from '../assets/images/reg2.png';
 import prizesDoor from '../assets/images/prizesDoor.png';
 import prizesKey from '../assets/images/prizesKey.png';
 import finalBg from '../assets/images/finalBg.png';
+import { Plug } from "../components/screens/Plug";
 
 
 export const screens = {
@@ -53,7 +54,8 @@ export const screens = {
     [SCREENS.FINAL_GAME]: GameFinal,
     [SCREENS.PRE_FINISH]: PreFinish,
     [SCREENS.PRIZES]: Prizes,
-    [SCREENS.FINISH]: Finish
+    [SCREENS.FINISH]: Finish,
+    [SCREENS.PLUG]: Plug,
 };
 
 export const preloadImages = [ 

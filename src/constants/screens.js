@@ -16,6 +16,7 @@ export const SCREENS = {
     PRE_FINISH: 'PREFINISH',
     PRIZES: 'PRIZES',
     FINISH: 'FINISH',
+    PLUG: 'PLUG',
 }
 
 export const NEXT_SCREENS = {
