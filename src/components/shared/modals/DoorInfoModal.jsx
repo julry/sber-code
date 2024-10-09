@@ -14,10 +14,11 @@ const BlockStyled = styled(Block)`
 `;
 
 export const DoorInfoModal = () => {
-    const { modal, setModal, passedWeeks, next } = useProgress();
+    const { modal, setModal, passedWeeks, next, currentWeek } = useProgress();
 
-    const isPassed = passedWeeks.includes(modal.week);
-    const currentWeek = weeks.find(({id}) => id === modal.week) ?? {};
+    const isFinalWeek = currentWeek === 5;
+    const isPassed = passedWeeks.includes(modal.week) || isFinalWeek;
+    const currentGameWeek = weeks.find(({id}) => id === modal.week) ?? {};
 
     const handleClick = () => {
         setModal({visible: false, week: modal.week});
@@ -31,9 +32,9 @@ export const DoorInfoModal = () => {
     return (
         <Modal>
             <BlockStyled>
-                <p>Эта дверь ведёт <b>в {currentWeek?.whereText}</b></p>
+                <p>Эта дверь ведёт <b>в {currentGameWeek?.whereText}</b></p>
                 <br />
-                <p>{isPassed ? currentWeek?.factText : 'Давай посмотрим, какой шифр для тебя подготовили!'}</p>
+                <p>{isPassed ? currentGameWeek?.factText : 'Давай посмотрим, какой шифр для тебя подготовили!'}</p>
             </BlockStyled>
             <ButtonStyled onClick={handleClick}>{isPassed ? 'Понятно' : 'Вперёд'}</ButtonStyled>
         </Modal>

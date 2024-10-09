@@ -175,7 +175,7 @@ export const Lobby = () => {
         if (id > currentWeek || (currentWeek !== 4 && isFinal)) return `Откроется ${date}`;
         if (isFinal) return 'Финальный шифр';
 
-        if (id <= week) return `Шифр №${id}`;
+        if (id <= week || isFinalWeek) return `Шифр №${id}`;
 
         return 'Реши предыдущий шифр'
     }
