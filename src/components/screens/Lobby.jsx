@@ -144,6 +144,12 @@ export const Lobby = () => {
 
     const handleClick = (id, isFinal) => {
         if (isFinalWeek) {
+            if (isFinal) {
+                next(SCREENS.FINISH);
+
+                return;
+            }
+            
             setModal({visible: true, type: 'week', week: id, onNext: () => handleNextDoor(id)});
             return;
         }
