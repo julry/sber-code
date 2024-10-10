@@ -5,6 +5,8 @@ import final from '../../assets/images/finalBg.png';
 import { Button } from "../shared/Button";
 import { useProgress } from "../../contexts/ProgressContext";
 import { TIPS_TO_POINTS } from "../../constants/tipsToPoints";
+import { BackButton } from "../shared/BackButton";
+import { SCREENS } from "../../constants/screens";
 
 const Wrapper = styled(FlexWrapper)`
     padding: ${({$ratio}) => $ratio * 100}px ${({$ratio}) => $ratio * 22}px ${({$ratio}) => $ratio * 40}px;
@@ -19,9 +21,15 @@ const ButtonStyled = styled(Button)`
     margin: ${({$ratio}) => $ratio * 20}px 0 ${({$ratio}) => $ratio * 40}px;
 `;
 
+const BackButtonStyled = styled(BackButton)`
+    position: absolute;
+    top: var(--spacing_x5);
+    left: var(--spacing_x5);
+`;
+
 export const Finish = () => {
     const ratio = useSizeRatio();
-    const {user, points, vipPoints} = useProgress();
+    const {user, points, vipPoints, currentWeek, next} = useProgress();
     
     const getUserCoins = () => {
         if (!user.isVip) return points;
@@ -37,6 +45,7 @@ export const Finish = () => {
 
     return (
         <Wrapper $ratio={ratio}>
+            {currentWeek >= 5 && <BackButtonStyled onClick={() => next(SCREENS.LOBBY)}/>}
             <p>
                 За дверью всё это время тебя ждал старт карьеры в Сбере. Скорее переходи к стажировке{'\n'}и отправляй заявку!
             </p>
