@@ -143,6 +143,10 @@ export const Lobby = () => {
     }
 
     const handleClick = (id, isFinal) => {
+        if (isFinalWeek) {
+            setModal({visible: true, type: 'week', week: id, onNext: () => handleNextDoor(id)});
+            return;
+        }
         if (isFinal && !isFinalOpened) return;
 
         if (isFinal) {
@@ -172,7 +176,7 @@ export const Lobby = () => {
     }, [isVip, registerWeek, weekTickets, setModal, currentWeek, isFinalWeek]);
     
     const getButtonText = (id, date, isFinal) => {
-        if (id > currentWeek || (currentWeek !== 4 && isFinal)) return `Откроется ${date}`;
+        if (id > currentWeek || (currentWeek < 4 && isFinal)) return `Откроется ${date}`;
         if (isFinal) return 'Финальный шифр';
 
         if (id <= week || isFinalWeek) return `Шифр №${id}`;

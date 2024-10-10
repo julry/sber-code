@@ -114,7 +114,7 @@ export const Login = () => {
 
         const { userInfo } = info;
 
-        if (currentWeek > 1 && userInfo.seenInfo) {
+        if (currentWeek > 1 && userInfo.seenInfo && currentWeek < 5) {
             reachMetrikaGoal(`${userInfo.isVip ? '' : 'non'}target_lobby${currentWeek}`);    
         }
 
@@ -139,7 +139,7 @@ export const Login = () => {
                 <ButtonWrapper>
                     <Button onClick={handleNext}>Вход</Button>
                     <AnimatePresence>
-                        {isIncorrectEmail && (
+                        {isIncorrectEmail && currentWeek < 5 && (
                             <Enter $ratio={ratio} onClick={() => next(SCREENS.REG_1)}>Регистрация</Enter>
                         )}
                     </AnimatePresence>

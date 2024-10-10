@@ -30,7 +30,7 @@ export const EndGameModal = () => {
     const { user, setModal } = useProgress();
 
     const handleClick = () => {
-        window.open('https://t.me/careersber', '_blank');
+        window.open('https://sbergraduate.ru/subscription?utm_source=fut&utm_medium=campus&utm_campaign=game', '_blank');
     }
 
     return (
@@ -43,7 +43,7 @@ export const EndGameModal = () => {
                     <a href={`https://t.me/sbercryptography_bot?start=email_${btoa(user.email)}`} rel="noreferrer" target="_blank">в боте</a>,{' '} 
                     чтобы не пропустить результаты розыгрыша.
                     {'\n\n'}
-                    Узнавай о карьерных возможностях и мероприятиях Сбера в ТГ-канале!
+                    Подписывайся на карьерный дайджест и будь в курсе карьерных возможностей и мероприятий Сбера!
                 </p>
             </BlockStyled>
             <ButtonStyled onClick={handleClick}>Перейти</ButtonStyled>

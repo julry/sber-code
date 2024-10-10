@@ -68,7 +68,7 @@ const PointsWrapper = styled(Wrapper)`
 
 export const ProfileModal = () => {
     const ratio = useSizeRatio();
-    const { user, weekPoints, vipPoints, points, setModal, passedWeeks, currentWeek } = useProgress();
+    const { user, weekPoints, vipPoints, points, setModal, passedWeeks } = useProgress();
     const isLastWeek = ((passedWeeks[passedWeeks.length - 1] ?? 0) + 1) >= 4;
 
     const handleClose = () => {
